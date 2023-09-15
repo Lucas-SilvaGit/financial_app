@@ -5,7 +5,10 @@ import Home from './components/Home';
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
+      <div>
+        <Route path="/" element={<Home />} />
+        <Route path="/" exact component={AccountList} />
+      </div>
     </Routes>
   );
 };
