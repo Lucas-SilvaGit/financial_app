@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import api from '../Api'; 
 
@@ -23,6 +24,10 @@ const AccountList = () => {
           <li key={account.id}>{account.name}</li>
         ))}
       </ul>
+
+      <Link to="/accounts/create" className="btn btn-success mt-3">
+        Criar Nova Conta
+      </Link>
     </div>
   );
 };
