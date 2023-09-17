@@ -10,6 +10,10 @@ const Home = () => {
       <Link to="/accounts" className="btn btn-primary mt-3">
         Acessar Contas
       </Link>
+
+      <Link to="/categories" className="btn btn-primary mt-3">
+        Acessar Categorias
+      </Link>
     </div>
   );
 };
