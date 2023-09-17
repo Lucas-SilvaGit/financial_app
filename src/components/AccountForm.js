@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const AccountForm = () => {
   const [name, setName] = useState('');
@@ -47,7 +47,11 @@ const AccountForm = () => {
             onChange={e => setBalance(parseFloat(e.target.value))}
           />
         </div>
-        <button type="submit">Criar</button>
+        <button type="submit" className="btn btn-primary mt-3">Criar</button>
+
+        <Link to="/accounts" className="btn btn-warning mt-3">
+          Voltar
+        </Link>
       </form>
     </div>
   );
