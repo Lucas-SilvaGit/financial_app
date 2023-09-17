@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const CategoryForm = () => {
   const [description, setDescription] = useState('');
@@ -34,7 +34,11 @@ const CategoryForm = () => {
             onChange={e => setDescription(e.target.value)}
           />
         </div>
-        <button type="submit">Criar</button>
+        <button type="submit" className="btn btn-primary mt-3">Criar</button>
+
+        <Link to="/categories" className="btn btn-warning mt-3">
+          Voltar
+        </Link>
       </form>
     </div>
   );
