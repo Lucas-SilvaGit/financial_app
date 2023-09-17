@@ -16,6 +16,19 @@ const AccountList = () => {
       });
   }, []);
 
+  const handleDeleteClick = (accountId) => {
+    if (window.confirm('Tem certeza de que deseja excluir esta conta?')) {
+      axios
+        .delete(`http://localhost:3001/v1/accounts/${accountId}`)
+        .then(() => {
+          setAccounts(accounts.filter(account => account.id !== accountId));
+        })
+        .catch(error => {
+          console.error('Error deleting account:', error);
+        });
+    }
+  };
+
   return (
     <div>
       <h2>Lista de Contas</h2>
@@ -23,15 +36,24 @@ const AccountList = () => {
         {accounts.map(account => (
           <li key={account.id}>
             {account.name}{" "}
+            {account.balance}{""}
             <Link to={`/accounts/edit/${account.id}`} className="btn btn-primary">
               Editar
             </Link>
+
+            <button onClick={() => handleDeleteClick(account.id)} className="btn btn-danger">
+              Deletar
+            </button>
           </li>
         ))}
       </ul>
 
       <Link to="/accounts/create" className="btn btn-success mt-3">
         Criar Nova Conta
+      </Link>
+
+      <Link to="/" className="btn btn-warning mt-3">
+        Voltar
       </Link>
     </div>
   );
