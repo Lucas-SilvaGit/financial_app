@@ -6,6 +6,7 @@ import AccountForm from './components/AccountForm';
 import AccountEdit from './components/AccountEdit';
 
 import CategoryList from './components/CategoryList';
+import CategoryForm from './components/CategoryForm';
 import CategoryEdit from './components/CategoryEdit';
 
 const AppRouter = () => {
@@ -15,7 +16,9 @@ const AppRouter = () => {
       <Route path="/accounts" element={<AccountList />} />
       <Route path="/accounts/create" element={<AccountForm />} />
       <Route path="/accounts/edit/:id" element={<AccountEdit />} />
+
       <Route path="/categories" element={<CategoryList />} />
+      <Route path="/categories/create" element={<CategoryForm />} />
       <Route path="/categories/edit/:id" element={<CategoryEdit />} />
     </Routes>
   );
