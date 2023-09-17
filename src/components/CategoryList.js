@@ -50,6 +50,10 @@ const CategoryList = () => {
       <Link to="/categories/create" className="btn btn-success mt-3">
         Criar Nova Categoria
       </Link>
+
+      <Link to="/" className="btn btn-primary mt-3">
+        Voltar
+      </Link>
     </div>
   );
 };
