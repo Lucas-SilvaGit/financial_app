@@ -21,7 +21,12 @@ const AccountList = () => {
       <h2>Lista de Contas</h2>
       <ul>
         {accounts.map(account => (
-          <li key={account.id}>{account.name}</li>
+          <li key={account.id}>
+            {account.name}{" "}
+            <Link to={`/accounts/edit/${account.id}`} className="btn btn-primary">
+              Editar
+            </Link>
+          </li>
         ))}
       </ul>
 
