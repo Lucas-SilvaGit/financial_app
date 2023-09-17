@@ -36,6 +36,7 @@ const AccountList = () => {
         {accounts.map(account => (
           <li key={account.id}>
             {account.name}{" "}
+            {account.balance}{""}
             <Link to={`/accounts/edit/${account.id}`} className="btn btn-primary">
               Editar
             </Link>
