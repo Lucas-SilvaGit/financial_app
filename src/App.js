@@ -7,11 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
-          Esse é Meu App React
-        </p>
-      </header>
       <Router>
         <AppRouter />
       </Router>
