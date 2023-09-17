@@ -8,7 +8,7 @@ const AccountForm = () => {
   const handleSubmit = event => {
     event.preventDefault();
 
-    axios.post('http://localhost:3001/v1/accounts', { name, balance }) // Envia também o balance
+    axios.post('http://localhost:3001/v1/accounts', { name, balance })
       .then(response => {
         console.log('Account created:', response.data);
         setName('');
