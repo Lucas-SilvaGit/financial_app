@@ -16,6 +16,19 @@ const CategoryList = () => {
       });
   }, []);
 
+  const handleDeleteClick = (categoryId) => {
+    if (window.confirm('Tem certeza de que deseja excluir esta categoria?')) {
+      axios
+        .delete(`http://localhost:3001/v1/categories/${categoryId}`)
+        .then(() => {
+          setCategories(categories.filter(category => category.id !== categoryId));
+        })
+        .catch(error => {
+          console.error('Error deleting category:', error);
+        });
+    }
+  };
+
   return (
     <div>
       <h2>Lista de Categorias</h2>
@@ -26,6 +39,10 @@ const CategoryList = () => {
             <Link to={`/categories/edit/${category.id}`} className="btn btn-primary">
               Editar
             </Link>
+
+            <button onClick={() => handleDeleteClick(category.id)} className="btn btn-danger">
+              Deletar
+            </button>
           </li>
         ))}
       </ul>
