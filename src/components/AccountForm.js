@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const AccountForm = () => {
   const [name, setName] = useState('');
   const [balance, setBalance] = useState(0.0);
+  const navigate = useNavigate();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -11,6 +13,7 @@ const AccountForm = () => {
     axios.post('http://localhost:3001/v1/accounts', { name, balance })
       .then(response => {
         console.log('Account created:', response.data);
+        navigate('/accounts');
         setName('');
         setBalance(0.0);
       })
