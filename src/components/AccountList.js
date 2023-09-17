@@ -50,6 +50,10 @@ const AccountList = () => {
       <Link to="/accounts/create" className="btn btn-success mt-3">
         Criar Nova Conta
       </Link>
+
+      <Link to="/" className="btn btn-warning mt-3">
+        Voltar
+      </Link>
     </div>
   );
 };
