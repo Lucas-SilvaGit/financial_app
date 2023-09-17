@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 
 const CategoryEdit = () => {
   const { id } = useParams();
@@ -43,7 +43,11 @@ const CategoryEdit = () => {
           value={description}
           onChange={e => setDescription(e.target.value)}
         />
-        <button type="submit">Atualizar</button>
+        <button type="submit" className="btn btn-primary mt-3">Atualizar</button>
+
+        <Link to="/categories" className="btn btn-warning mt-3">
+          Voltar
+        </Link>
       </form>
     </div>
   );
