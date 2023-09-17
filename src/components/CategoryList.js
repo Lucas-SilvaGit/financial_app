@@ -22,7 +22,10 @@ const CategoryList = () => {
       <ul>
         {categories.map(category => (
           <li key={category.id}>
-            {category.description}{""}
+            {category.description}{" "}
+            <Link to={`/categories/edit/${category.id}`} className="btn btn-primary">
+              Editar
+            </Link>
           </li>
         ))}
       </ul>
