@@ -29,6 +29,10 @@ const CategoryList = () => {
           </li>
         ))}
       </ul>
+
+      <Link to="/categories/create" className="btn btn-success mt-3">
+        Criar Nova Categoria
+      </Link>
     </div>
   );
 };
