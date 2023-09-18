@@ -7,7 +7,7 @@ const EntryForm = () => {
   const [value, setValue] = useState(0.0);
   const [date, setDate] = useState('');
   const [billed, setBilled] = useState(false);
-  const [entry_type, setEntryType] = useState('');
+  const [entry_type, setEntryType] = useState('revenue');
   const [category_id, setCategoryId] = useState('');
   const [account_id, setAccountId] = useState('');
   
@@ -109,7 +109,7 @@ const EntryForm = () => {
             value={entry_type}
             onChange={e => setEntryType(e.target.value)}
           >
-            <option value="income">Receita</option>
+            <option value="revenue">Receita</option>
             <option value="expense">Despesa</option>
           </select>
         </div>
