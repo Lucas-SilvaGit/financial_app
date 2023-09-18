@@ -43,6 +43,10 @@ const EntryList = () => {
             {entry.account_id}{" "}
             {console.log("entry.billed:", entry.billed)}
 
+            <Link to={`/entries/edit/${entry.id}`} className="btn btn-primary">
+              Editar
+            </Link>
+
             <button onClick={() => handleDeleteClick(entry.id)} className="btn btn-danger">
               Deletar
             </button>
