@@ -32,6 +32,14 @@ const EntryList = () => {
           </li>
         ))}
       </ul>
+
+      <Link to="/entries/create" className="btn btn-success mt-3">
+        Criar Nova Entrada
+      </Link>
+
+      <Link to="/" className="btn btn-warning mt-3">
+        Voltar
+      </Link>
     </div>
   );
 };
