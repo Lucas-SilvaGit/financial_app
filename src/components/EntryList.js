@@ -24,10 +24,10 @@ const EntryList = () => {
             {entry.description}{" "}
             {entry.value}{" "}
             {entry.date}{" "}
-            {entry.billed}{" "}
+            {String(entry.billed)}{" "}
             {entry.entry_type}{" "}
             {entry.category_id}{" "}
-
+            {entry.account_id}{" "}
             {console.log("entry.billed:", entry.billed)}
           </li>
         ))}
