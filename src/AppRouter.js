@@ -11,6 +11,7 @@ import CategoryEdit from './components/CategoryEdit';
 
 import EntryList from './components/EntryList';
 import EntryForm from './components/EntryForm';
+import EntryEdit from './components/EntryEdit';
 
 const AppRouter = () => {
   return (
@@ -26,6 +27,7 @@ const AppRouter = () => {
 
       <Route path="/entries" element={<EntryList />} />
       <Route path="/entries/create" element={<EntryForm />} />
+      <Route path="/entries/edit/:id" element={<EntryEdit />} />
     </Routes>
   );
 };
