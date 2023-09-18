@@ -10,6 +10,7 @@ import CategoryForm from './components/CategoryForm';
 import CategoryEdit from './components/CategoryEdit';
 
 import EntryList from './components/EntryList';
+import EntryForm from './components/EntryForm';
 
 const AppRouter = () => {
   return (
@@ -24,6 +25,7 @@ const AppRouter = () => {
       <Route path="/categories/edit/:id" element={<CategoryEdit />} />
 
       <Route path="/entries" element={<EntryList />} />
+      <Route path="/entries/create" element={<EntryForm />} />
     </Routes>
   );
 };
