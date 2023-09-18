@@ -15,6 +15,19 @@ const EntryList = () => {
       });
   }, []);
 
+  const handleDeleteClick = (entryId) => {
+    if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
+      axios
+        .delete(`http://localhost:3001/v1/entries/${entryId}`)
+        .then(() => {
+          setEntries(entries.filter(entry => entry.id !== entryId));
+        })
+        .catch(error => {
+          console.error('Error deleting entry:', error);
+        });
+    }
+  };
+
   return (
     <div>
       <h2>Lista de Receitas e Despesas</h2>
@@ -29,6 +42,10 @@ const EntryList = () => {
             {entry.category_id}{" "}
             {entry.account_id}{" "}
             {console.log("entry.billed:", entry.billed)}
+
+            <button onClick={() => handleDeleteClick(entry.id)} className="btn btn-danger">
+              Deletar
+            </button>
           </li>
         ))}
       </ul>
