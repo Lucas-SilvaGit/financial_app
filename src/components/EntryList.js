@@ -1,6 +1,7 @@
 import React, { useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import DataTable from './DataTable';
 
 const EntryList = () => {
   const [entries, setEntries] = useState([]);
@@ -54,47 +55,38 @@ const EntryList = () => {
     }
   };
 
+  const columns = [
+    { key: 'description', title: 'Descrição' },
+    { key: 'value', title: 'Valor' },
+    { key: 'date', title: 'Data' },
+    { key: 'billed', title: 'Status', render: (entry) => (entry.billed ? 'Faturado' : 'Não Faturado') },
+    { key: 'entry_type', title: 'Tipo', render: (entry) => (entry.entry_type === 'revenue' ? 'Receita' : 'Despesa') },
+    { key: 'category_id', title: 'Categoria', render: (entry) => categoryDescriptions[entry.category_id] || 'N/A' },
+    { key: 'account_id', title: 'Conta', render: (entry) => accountDescriptions[entry.account_id] || 'N/A' },
+    {
+      key: 'edit',
+      title: 'Editar',
+      render: (entry) => (
+        <Link to={`/entries/edit/${entry.id}`} className="btn btn-primary">
+          Editar
+        </Link>
+      ),
+    },
+    {
+      key: 'delete',
+      title: 'Deletar',
+      render: (entry) => (
+        <button onClick={() => handleDeleteClick(entry.id)} className="btn btn-danger">
+          Deletar
+        </button>
+      ),
+    },
+  ];
+
   return (
     <div className='container-fluid'>
       <h2>Lista de Receitas e Despesas</h2>
-      <table className="table table-striped">
-        <thead>
-          <tr>
-            <th>Descrição</th>
-            <th>Valor</th>
-            <th>Data</th>
-            <th>Status</th>
-            <th>Tipo</th>
-            <th>Categoria</th>
-            <th>Conta</th>
-            <th>Editar</th>
-            <th>Deletar</th>
-          </tr>
-        </thead>
-        <tbody>
-          {entries.map(entry => (
-            <tr key={entry.id}>
-              <td>{entry.description}</td>
-              <td>{entry.value}</td>
-              <td>{entry.date}</td>
-              <td>{entry.billed ? 'Faturado' : 'Não Faturado'}</td>
-              <td>{entry.entry_type === 'revenue' ? 'Receita' : 'Despesa'}</td>
-              <td>{categoryDescriptions[entry.category_id] || 'N/A'}</td>
-              <td>{accountDescriptions[entry.account_id] || 'N/A'}</td>
-              <td>
-                <Link to={`/entries/edit/${entry.id}`} className="btn btn-primary">
-                  Editar
-                </Link>
-              </td>
-              <td>
-                <button onClick={() => handleDeleteClick(entry.id)} className="btn btn-danger">
-                  Deletar
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <DataTable data={entries} columns={columns} />
 
       <Link to="/entries/create" className="btn btn-success mt-3">
         Criar Nova Entrada
