@@ -4,6 +4,8 @@ import axios from 'axios';
 
 const EntryList = () => {
   const [entries, setEntries] = useState([]);
+  const [categoryDescriptions, setCategoryDescriptions] = useState({});
+  const [accountDescriptions, setAccountDescriptions] = useState({});
 
   useEffect(() => {
     axios.get(`http://localhost:3001/v1/entries`)
@@ -12,6 +14,30 @@ const EntryList = () => {
       })
       .catch(error => {
         console.error('Error getting entries:', error);
+      });
+
+    axios.get(`http://localhost:3001/v1/categories`)
+      .then(response => {
+        const descriptions = {};
+        response.data.forEach(category => {
+          descriptions[category.id] = category.description;
+        });
+        setCategoryDescriptions(descriptions);
+      })
+      .catch(error => {
+        console.error('Error getting categories:', error);
+      });
+
+    axios.get(`http://localhost:3001/v1/accounts`)
+      .then(response => {
+        const descriptions = {};
+        response.data.forEach(account => {
+          descriptions[account.id] = account.name;
+        });
+        setAccountDescriptions(descriptions);
+      })
+      .catch(error => {
+        console.error('Error getting categories:', error);
       });
   }, []);
 
@@ -37,11 +63,10 @@ const EntryList = () => {
             {entry.description}{" "}
             {entry.value}{" "}
             {entry.date}{" "}
-            {String(entry.billed)}{" "}
-            {entry.entry_type}{" "}
-            {entry.category_id}{" "}
-            {entry.account_id}{" "}
-            {console.log("entry.billed:", entry.billed)}
+            {entry.billed ? 'Faturado' : 'Não Faturado'}
+            {entry.entry_type === 'revenue' ? 'Receita' : 'Despesa'}{" "}
+            {categoryDescriptions[entry.category_id] || 'N/A'}{" "}
+            {accountDescriptions[entry.account_id] || 'N/A'}{" "}
 
             <Link to={`/entries/edit/${entry.id}`} className="btn btn-primary">
               Editar
