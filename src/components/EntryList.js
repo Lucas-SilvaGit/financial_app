@@ -55,29 +55,46 @@ const EntryList = () => {
   };
 
   return (
-    <div>
+    <div className='container-fluid'>
       <h2>Lista de Receitas e Despesas</h2>
-      <ul>
-        {entries.map(entry => (
-          <li key={entry.id}>
-            {entry.description}{" "}
-            {entry.value}{" "}
-            {entry.date}{" "}
-            {entry.billed ? 'Faturado' : 'Não Faturado'}
-            {entry.entry_type === 'revenue' ? 'Receita' : 'Despesa'}{" "}
-            {categoryDescriptions[entry.category_id] || 'N/A'}{" "}
-            {accountDescriptions[entry.account_id] || 'N/A'}{" "}
-
-            <Link to={`/entries/edit/${entry.id}`} className="btn btn-primary">
-              Editar
-            </Link>
-
-            <button onClick={() => handleDeleteClick(entry.id)} className="btn btn-danger">
-              Deletar
-            </button>
-          </li>
-        ))}
-      </ul>
+      <table className="table table-striped">
+        <thead>
+          <tr>
+            <th>Descrição</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Tipo</th>
+            <th>Categoria</th>
+            <th>Conta</th>
+            <th>Editar</th>
+            <th>Deletar</th>
+          </tr>
+        </thead>
+        <tbody>
+          {entries.map(entry => (
+            <tr key={entry.id}>
+              <td>{entry.description}</td>
+              <td>{entry.value}</td>
+              <td>{entry.date}</td>
+              <td>{entry.billed ? 'Faturado' : 'Não Faturado'}</td>
+              <td>{entry.entry_type === 'revenue' ? 'Receita' : 'Despesa'}</td>
+              <td>{categoryDescriptions[entry.category_id] || 'N/A'}</td>
+              <td>{accountDescriptions[entry.account_id] || 'N/A'}</td>
+              <td>
+                <Link to={`/entries/edit/${entry.id}`} className="btn btn-primary">
+                  Editar
+                </Link>
+              </td>
+              <td>
+                <button onClick={() => handleDeleteClick(entry.id)} className="btn btn-danger">
+                  Deletar
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       <Link to="/entries/create" className="btn btn-success mt-3">
         Criar Nova Entrada
