@@ -44,7 +44,8 @@ const AccountForm = () => {
             step="0.01"
             placeholder="Saldo"
             value={balance}
-            onChange={e => setBalance(parseFloat(e.target.value))}
+            onChange={() => {}}
+            disabled
           />
         </div>
         <button type="submit" className="btn btn-primary mt-3">Criar</button>
