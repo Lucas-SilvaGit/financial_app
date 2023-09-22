@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import api from '../Api'; 
+import DataTable from './DataTable';
 
 const AccountList = () => {
   const [accounts, setAccounts] = useState([]);
@@ -29,24 +29,33 @@ const AccountList = () => {
     }
   };
 
-  return (
-    <div>
-      <h2>Lista de Contas</h2>
-      <ul>
-        {accounts.map(account => (
-          <li key={account.id}>
-            {account.name}{" "}
-            {account.balance}{""}
-            <Link to={`/accounts/edit/${account.id}`} className="btn btn-primary">
-              Editar
-            </Link>
+  const columns = [
+    { key: 'name', title: 'Nome da Conta' },
+    { key: 'balance', title: 'Saldo' },
+    {
+      key: 'edit',
+      title: 'Editar',
+      render: (account) => (
+        <Link to={`/accounts/edit/${account.id}`} className="btn btn-primary">
+          Editar
+        </Link>
+      ),
+    },
+    {
+      key: 'delete',
+      title: 'Deletar',
+      render: (account) => (
+        <button onClick={() => handleDeleteClick(account.id)} className="btn btn-danger">
+          Deletar
+        </button>
+      ),
+    },
+  ];
 
-            <button onClick={() => handleDeleteClick(account.id)} className="btn btn-danger">
-              Deletar
-            </button>
-          </li>
-        ))}
-      </ul>
+  return (
+    <div className='container-lg'>
+      <h2>Lista de Contas</h2>
+      <DataTable data={accounts} columns={columns} />
 
       <Link to="/accounts/create" className="btn btn-success mt-3">
         Criar Nova Conta

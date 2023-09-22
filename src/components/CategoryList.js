@@ -1,7 +1,7 @@
 import React,  { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import axios from "axios";
-import api from "../Api";
+import DataTable from "./DataTable";
 
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
@@ -29,23 +29,32 @@ const CategoryList = () => {
     }
   };
 
-  return (
-    <div>
-      <h2>Lista de Categorias</h2>
-      <ul>
-        {categories.map(category => (
-          <li key={category.id}>
-            {category.description}{" "}
-            <Link to={`/categories/edit/${category.id}`} className="btn btn-primary">
-              Editar
-            </Link>
+  const columns = [
+    { key: 'description', title: 'Descrição' },
+    {
+      key: 'edit',
+      title: 'Editar',
+      render: (category) => (
+        <Link to={`/categories/edit/${category.id}`} className="btn btn-primary">
+          Editar
+        </Link>
+      ),
+    },
+    {
+      key: 'delete',
+      title: 'Deletar',
+      render: (category) => (
+        <button onClick={() => handleDeleteClick(category.id)} className="btn btn-danger">
+          Deletar
+        </button>
+      ),
+    },
+  ]
 
-            <button onClick={() => handleDeleteClick(category.id)} className="btn btn-danger">
-              Deletar
-            </button>
-          </li>
-        ))}
-      </ul>
+  return (
+    <div className="container-lg">
+      <h2>Lista de Categorias</h2>
+      <DataTable data={categories} columns={columns} />
 
       <Link to="/categories/create" className="btn btn-success mt-3">
         Criar Nova Categoria

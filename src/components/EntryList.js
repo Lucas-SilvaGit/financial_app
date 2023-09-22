@@ -84,7 +84,7 @@ const EntryList = () => {
   ];
 
   return (
-    <div className='container-fluid'>
+    <div className='container-lg'>
       <h2>Lista de Receitas e Despesas</h2>
       <DataTable data={entries} columns={columns} />
 
