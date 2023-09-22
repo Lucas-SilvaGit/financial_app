@@ -13,6 +13,10 @@ const Home = () => {
       <Link to="/categories" className="btn btn-primary mt-3">
         Acessar Categorias
       </Link>
+
+      <Link to="/entries" className="btn btn-primary mt-3">
+        Acessar Receitas e Despesas
+      </Link>
     </div>
   );
 };
