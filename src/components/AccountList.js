@@ -17,7 +17,7 @@ const AccountList = () => {
           'http://localhost:3001/v1/accounts',
           {
             params: {
-              'page[number]': currentPage,
+              'page[number]': currentPage + 1,
               'page[size]': perPage,
             },
           }
@@ -73,8 +73,7 @@ const AccountList = () => {
   ];
 
   const handlePageChange = ({ selected }) => {
-    const newPage = selected + 1;
-    setCurrentPage(newPage);
+    setCurrentPage(selected);
   };
 
   return (
@@ -89,7 +88,7 @@ const AccountList = () => {
         pageCount={totalPages}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
-        onPageChange={({ selected }) => setCurrentPage(selected + 1)}
+        onPageChange={handlePageChange}
         containerClassName={'pagination'}
         activeClassName={'active'}
       />
