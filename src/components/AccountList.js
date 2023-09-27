@@ -5,16 +5,26 @@ import DataTable from './DataTable';
 
 const AccountList = () => {
   const [accounts, setAccounts] = useState([]);
+  const [nameFilter, setNameFilter] = useState('');
+  const [balanceFilter, setBalanceFilter] = useState('');
 
   useEffect(() => {
-    axios.get('http://localhost:3001/v1/accounts')
-      .then(response => {
+    const loadAccounts = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/v1/accounts', {
+          params: {
+            name: nameFilter,
+            balance: balanceFilter,
+          },
+        });
         setAccounts(response.data);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error fetching accounts:', error);
-      });
-  }, []);
+      }
+    };
+
+    loadAccounts();
+  }, [nameFilter, balanceFilter]);
 
   const handleDeleteClick = (accountId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta conta?')) {
@@ -27,6 +37,11 @@ const AccountList = () => {
           console.error('Error deleting account:', error);
         });
     }
+  };
+
+  const handleClearFilters = () => {
+    setNameFilter('');
+    setBalanceFilter('');
   };
 
   const columns = [
@@ -52,9 +67,47 @@ const AccountList = () => {
     },
   ];
 
+
   return (
-    <div className='container-lg'>
+    <div className='container-lg mt-3 mb-3'>
       <h2>Lista de Contas</h2>
+
+      <form className='row g-3 mt-3 mb-3 align-items-center'>
+        <div className='col-auto'>
+          <label className='col-form-label'>
+            Pesquisar:
+          </label>
+        </div>
+        <div className='col-auto'>
+          <input
+            type="text"
+            placeholder="Nome"
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-auto'>
+          <input
+            type="text"
+            placeholder="Saldo"
+            value={balanceFilter}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*\.?\d*$/.test(value) || value === "") {
+                setBalanceFilter(value);
+              }
+            }}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-auto'>
+          <button className="btn btn-primary" onClick={handleClearFilters}>Limpar Filtros</button>
+        </div>
+      </form>
+      
       <DataTable data={accounts} columns={columns} />
 
       <Link to="/accounts/create" className="btn btn-success mt-3">
