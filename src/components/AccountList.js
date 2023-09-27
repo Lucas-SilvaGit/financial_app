@@ -69,24 +69,44 @@ const AccountList = () => {
 
 
   return (
-    <div className='container-lg'>
+    <div className='container-lg mt-3'>
       <h2>Lista de Contas</h2>
 
-      <div>
-        <input
-          type="text"
-          placeholder="Nome"
-          value={nameFilter}
-          onChange={(e) => setNameFilter(e.target.value)}
-        />
-        <input
-          type="number"
-          placeholder="Saldo"
-          value={balanceFilter}
-          onChange={(e) => setBalanceFilter(e.target.value)}
-        />
-        <button onClick={handleClearFilters}>Limpar Filtros</button>
-      </div>
+      <form className='row g-3 mt-3 mb-3 align-items-center'>
+        <div className='col-auto'>
+          <label className='col-form-label'>
+            Pesquisar:
+          </label>
+        </div>
+        <div className='col-auto'>
+          <input
+            type="text"
+            placeholder="Nome"
+            value={nameFilter}
+            onChange={(e) => setNameFilter(e.target.value)}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-auto'>
+          <input
+            type="text"
+            placeholder="Saldo"
+            value={balanceFilter}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*\.?\d*$/.test(value) || value === "") {
+                setBalanceFilter(value);
+              }
+            }}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-auto'>
+          <button className="btn btn-primary" onClick={handleClearFilters}>Limpar Filtros</button>
+        </div>
+      </form>
       
       <DataTable data={accounts} columns={columns} />
 
