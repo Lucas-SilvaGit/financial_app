@@ -5,42 +5,59 @@ import DataTable from './DataTable';
 
 const EntryList = () => {
   const [entries, setEntries] = useState([]);
+  const [filteredEntries, setFilteredEntries] = useState([]); // Estado para armazenar entradas filtradas
   const [categoryDescriptions, setCategoryDescriptions] = useState({});
   const [accountDescriptions, setAccountDescriptions] = useState({});
+  const [descriptionFilter, setDescriptionFilter] = useState('');
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/v1/entries`)
-      .then(response => {
+    // Função para buscar descrições de categorias e contas
+    const fetchDescriptions = async () => {
+      try {
+        const [categoriesResponse, accountsResponse] = await Promise.all([
+          axios.get('http://localhost:3001/v1/categories'),
+          axios.get('http://localhost:3001/v1/accounts')
+        ]);
+
+        const categoryDesc = {};
+        categoriesResponse.data.forEach(category => {
+          categoryDesc[category.id] = category.description;
+        });
+
+        const accountDesc = {};
+        accountsResponse.data.forEach(account => {
+          accountDesc[account.id] = account.name;
+        });
+
+        setCategoryDescriptions(categoryDesc);
+        setAccountDescriptions(accountDesc);
+      } catch (error) {
+        console.error('Error fetching descriptions:', error);
+      }
+    };
+
+    // Função para buscar todas as entradas (sem filtro)
+    const fetchEntries = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/v1/entries');
         setEntries(response.data);
-      })
-      .catch(error => {
+      } catch (error) {
         console.error('Error getting entries:', error);
-      });
+      }
+    };
 
-    axios.get(`http://localhost:3001/v1/categories`)
-      .then(response => {
-        const descriptions = {};
-        response.data.forEach(category => {
-          descriptions[category.id] = category.description;
-        });
-        setCategoryDescriptions(descriptions);
-      })
-      .catch(error => {
-        console.error('Error getting categories:', error);
-      });
-
-    axios.get(`http://localhost:3001/v1/accounts`)
-      .then(response => {
-        const descriptions = {};
-        response.data.forEach(account => {
-          descriptions[account.id] = account.name;
-        });
-        setAccountDescriptions(descriptions);
-      })
-      .catch(error => {
-        console.error('Error getting categories:', error);
-      });
+    // Inicialmente, busca descrições e todas as entradas
+    fetchDescriptions();
+    fetchEntries();
   }, []);
+
+  // Função para filtrar entradas com base na descrição
+  useEffect(() => {
+    const filtered = entries.filter(entry =>
+      entry.description.toLowerCase().includes(descriptionFilter.toLowerCase())
+    );
+    setFilteredEntries(filtered);
+  }, [descriptionFilter, entries]);
 
   const handleDeleteClick = (entryId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
@@ -86,7 +103,20 @@ const EntryList = () => {
   return (
     <div className='container-lg'>
       <h2>Lista de Receitas e Despesas</h2>
-      <DataTable data={entries} columns={columns} />
+      
+      <form className='row g-3 mt-3 mb-3 align-items-center'>
+        <div className='col-auto'>
+          <input
+            type="text"
+            placeholder="Descrição"
+            value={descriptionFilter}
+            onChange={(e) => setDescriptionFilter(e.target.value)}
+            className='form-control'
+          />
+        </div>
+      </form>
+
+      <DataTable data={filteredEntries} columns={columns} />
 
       <Link to="/entries/create" className="btn btn-success mt-3">
         Criar Nova Entrada
