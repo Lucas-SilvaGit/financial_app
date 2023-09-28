@@ -72,6 +72,10 @@ const EntryList = () => {
     }
   };
 
+  const handleClearFilters = () => {
+    setDescriptionFilter('');
+  };
+
   const columns = [
     { key: 'description', title: 'Descrição' },
     { key: 'value', title: 'Valor' },
@@ -113,6 +117,10 @@ const EntryList = () => {
             onChange={(e) => setDescriptionFilter(e.target.value)}
             className='form-control'
           />
+        </div>
+
+        <div className='col-auto'>
+          <button className="btn btn-primary" onClick={handleClearFilters}>Limpar Filtros</button>
         </div>
       </form>
 
