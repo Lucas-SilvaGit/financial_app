@@ -9,6 +9,7 @@ const EntryList = () => {
   const [categoryDescriptions, setCategoryDescriptions] = useState({});
   const [accountDescriptions, setAccountDescriptions] = useState({});
   const [descriptionFilter, setDescriptionFilter] = useState('');
+  const [valueFilter, setValueFilter] = useState('');
 
   useEffect(() => {
     // Função para buscar descrições de categorias e contas
@@ -59,6 +60,15 @@ const EntryList = () => {
     setFilteredEntries(filtered);
   }, [descriptionFilter, entries]);
 
+  // Função para filtrar entradas com base na valor
+  useEffect(() => {
+    const filtered = entries.filter(entry =>
+      entry.value.toString().includes(valueFilter)
+    );
+    setFilteredEntries(filtered);
+  }, [valueFilter, entries]);
+
+  
   const handleDeleteClick = (entryId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
       axios
@@ -74,6 +84,7 @@ const EntryList = () => {
 
   const handleClearFilters = () => {
     setDescriptionFilter('');
+    setValueFilter('');
   };
 
   const columns = [
@@ -109,7 +120,7 @@ const EntryList = () => {
       <h2>Lista de Receitas e Despesas</h2>
       
       <form className='row g-3 mt-3 mb-3 align-items-center'>
-        <div className='col-auto'>
+        <div className='col-3'>
           <input
             type="text"
             placeholder="Descrição"
@@ -119,7 +130,22 @@ const EntryList = () => {
           />
         </div>
 
-        <div className='col-auto'>
+        <div className='col-3'>
+          <input
+            type="text"
+            placeholder="Valor"
+            value={valueFilter}
+            onChange={(e) => {
+              const value = e.target.value;
+              if (/^\d*\.?\d*$/.test(value) || value === "") {
+                setValueFilter(value);
+              }
+            }}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-3'>
           <button className="btn btn-primary" onClick={handleClearFilters}>Limpar Filtros</button>
         </div>
       </form>
