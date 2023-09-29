@@ -11,6 +11,7 @@ const EntryList = () => {
   const [descriptionFilter, setDescriptionFilter] = useState('');
   const [valueFilter, setValueFilter] = useState('');
   const [billedFilter, setBilledFilter] = useState('all');
+  const [entryTypeFilter, setEntryTypeFilter] = useState('all');
 
   useEffect(() => {
     // Função para buscar descrições de categorias e contas
@@ -85,6 +86,19 @@ const EntryList = () => {
     setFilteredEntries(filteredBilled);
   }, [billedFilter, entries]);
 
+  // Função para filtrar entradas com base no tipo da entrada receita ou despesa
+  useEffect(() => {
+    const filteredEntryType = entries.filter(entry => {
+      if (entryTypeFilter === 'all') {
+        return true;
+      } else {
+        return entry.entry_type === entryTypeFilter;
+      }
+    });
+
+    setFilteredEntries(filteredEntryType);
+  }, [entryTypeFilter, entries]);
+
   const handleDeleteClick = (entryId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
       axios
@@ -101,6 +115,8 @@ const EntryList = () => {
   const handleClearFilters = () => {
     setDescriptionFilter('');
     setValueFilter('');
+    setBilledFilter('');
+    setEntryTypeFilter('');
   };
 
   const columns = [
@@ -167,9 +183,21 @@ const EntryList = () => {
             onChange={(e) => setBilledFilter(e.target.value)}
             className='form-select'
           >
-            <option value='all'>Todos</option>
+            <option value='all'>Todos Status</option>
             <option value='billed'>Faturado</option>
             <option value='not-billed'>Não Faturado</option>
+          </select>
+        </div>
+
+        <div className='col-3'>
+          <select
+            value={entryTypeFilter}
+            onChange={(e) => setEntryTypeFilter(e.target.value)}
+            className='form-select'
+          >
+            <option value='all'>Todos Tipos</option>
+            <option value='revenue'>Receita</option>
+            <option value='expense'>Despesa</option>
           </select>
         </div>
 
