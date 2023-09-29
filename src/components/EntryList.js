@@ -10,6 +10,7 @@ const EntryList = () => {
   const [accountDescriptions, setAccountDescriptions] = useState({});
   const [descriptionFilter, setDescriptionFilter] = useState('');
   const [valueFilter, setValueFilter] = useState('');
+  const [billedFilter, setBilledFilter] = useState('all');
 
   useEffect(() => {
     // Função para buscar descrições de categorias e contas
@@ -54,21 +55,36 @@ const EntryList = () => {
 
   // Função para filtrar entradas com base na descrição
   useEffect(() => {
-    const filtered = entries.filter(entry =>
+    const filteredDescription = entries.filter(entry =>
       entry.description.toLowerCase().includes(descriptionFilter.toLowerCase())
     );
-    setFilteredEntries(filtered);
+    setFilteredEntries(filteredDescription);
   }, [descriptionFilter, entries]);
 
   // Função para filtrar entradas com base na valor
   useEffect(() => {
-    const filtered = entries.filter(entry =>
+    const filteredValue = entries.filter(entry =>
       entry.value.toString().includes(valueFilter)
     );
-    setFilteredEntries(filtered);
+    setFilteredEntries(filteredValue);
   }, [valueFilter, entries]);
 
-  
+  // Função para filtrar entradas com base no status de billed
+  useEffect(() => {
+    const filteredBilled = entries.filter(entry => {
+      if (billedFilter === 'all') {
+        return true;
+      } else if (billedFilter === 'billed') {
+        return entry.billed === true;
+      } else if (billedFilter === 'not-billed') {
+        return entry.billed === false;
+      }
+      return false;
+    });
+
+    setFilteredEntries(filteredBilled);
+  }, [billedFilter, entries]);
+
   const handleDeleteClick = (entryId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
       axios
@@ -143,6 +159,18 @@ const EntryList = () => {
             }}
             className='form-control'
           />
+        </div>
+
+        <div className='col-3'>
+          <select
+            value={billedFilter}
+            onChange={(e) => setBilledFilter(e.target.value)}
+            className='form-select'
+          >
+            <option value='all'>Todos</option>
+            <option value='billed'>Faturado</option>
+            <option value='not-billed'>Não Faturado</option>
+          </select>
         </div>
 
         <div className='col-3'>
