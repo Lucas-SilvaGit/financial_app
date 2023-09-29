@@ -12,6 +12,7 @@ const EntryList = () => {
   const [valueFilter, setValueFilter] = useState('');
   const [billedFilter, setBilledFilter] = useState('all');
   const [entryTypeFilter, setEntryTypeFilter] = useState('all');
+  const [categoryFilter, setCategoryFilter] = useState('all');
 
   useEffect(() => {
     // Função para buscar descrições de categorias e contas
@@ -99,6 +100,19 @@ const EntryList = () => {
     setFilteredEntries(filteredEntryType);
   }, [entryTypeFilter, entries]);
 
+  // Função para filtrar entradas com base na categoria
+  useEffect(() => {
+    const filteredCategory = entries.filter(entry => {
+      if (categoryFilter === 'all') {
+        return true;
+      } else {
+        return entry.category_id.toString() === categoryFilter;
+      }
+    });
+
+    setFilteredEntries(filteredCategory);
+  }, [categoryFilter, entries]);
+
   const handleDeleteClick = (entryId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
       axios
@@ -117,6 +131,7 @@ const EntryList = () => {
     setValueFilter('');
     setBilledFilter('');
     setEntryTypeFilter('');
+    setCategoryFilter('');
   };
 
   const columns = [
@@ -198,6 +213,21 @@ const EntryList = () => {
             <option value='all'>Todos Tipos</option>
             <option value='revenue'>Receita</option>
             <option value='expense'>Despesa</option>
+          </select>
+        </div>
+
+        <div className='col-3'>
+          <select
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className='form-select'
+          >
+            <option value='all'>Todas Categorias</option>
+            {Object.keys(categoryDescriptions).map((categoryId) => (
+              <option key={categoryId} value={categoryId}>
+                {categoryDescriptions[categoryId]}
+              </option>
+            ))}
           </select>
         </div>
 
