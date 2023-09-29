@@ -13,6 +13,7 @@ const EntryList = () => {
   const [billedFilter, setBilledFilter] = useState('all');
   const [entryTypeFilter, setEntryTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
+  const [accountFilter, setAccountFilter] = useState('all');
 
   useEffect(() => {
     // Função para buscar descrições de categorias e contas
@@ -113,6 +114,19 @@ const EntryList = () => {
     setFilteredEntries(filteredCategory);
   }, [categoryFilter, entries]);
 
+  // Função para filtrar entradas com base na conta vinculada a entrada
+  useEffect(() => {
+    const filteredAccount = entries.filter(entry => {
+      if (accountFilter === 'all') {
+        return true;
+      } else {
+        return entry.account_id.toString() === accountFilter;
+      }
+    });
+
+    setFilteredEntries(filteredAccount);
+  }, [accountFilter, entries]);
+
   const handleDeleteClick = (entryId) => {
     if (window.confirm('Tem certeza de que deseja excluir esta entrada?')) {
       axios
@@ -132,6 +146,7 @@ const EntryList = () => {
     setBilledFilter('');
     setEntryTypeFilter('');
     setCategoryFilter('');
+    setAccountFilter('');
   };
 
   const columns = [
@@ -226,6 +241,21 @@ const EntryList = () => {
             {Object.keys(categoryDescriptions).map((categoryId) => (
               <option key={categoryId} value={categoryId}>
                 {categoryDescriptions[categoryId]}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className='col-3'>
+          <select
+            value={accountFilter}
+            onChange={(e) => setAccountFilter(e.target.value)}
+            className='form-select'
+          >
+            <option value='all'>Todas Contas</option>
+            {Object.keys(accountDescriptions).map((accountId) => (
+              <option key={accountId} value={accountId}>
+                {accountDescriptions[accountId]}
               </option>
             ))}
           </select>
