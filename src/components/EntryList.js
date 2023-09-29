@@ -178,10 +178,16 @@ const EntryList = () => {
   ];
 
   return (
-    <div className='container-lg'>
+    <div className='container-lg mt-3 mb-3'>
       <h2>Lista de Receitas e Despesas</h2>
       
       <form className='row g-3 mt-3 mb-3 align-items-center'>
+      <div className='col-auto'>
+          <label className='col-form-label'>
+            Pesquisar:
+          </label>
+        </div>
+
         <div className='col-3'>
           <input
             type="text"
@@ -268,7 +274,7 @@ const EntryList = () => {
 
       <DataTable data={filteredEntries} columns={columns} />
 
-      <Link to="/entries/create" className="btn btn-success mt-3">
+      <Link to="/entries/create" className="btn btn-success mt-3 mx-3">
         Criar Nova Entrada
       </Link>
 
