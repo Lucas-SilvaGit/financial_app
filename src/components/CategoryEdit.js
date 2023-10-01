@@ -43,21 +43,35 @@ const CategoryEdit = () => {
   };
 
   return (
-    <div>
-      <h2>Editar Categoria</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nome da Categoria"
-          value={description}
-          onChange={e => setDescription(e.target.value)}
-        />
-        <button type="submit" className="btn btn-primary mt-3">Atualizar</button>
+    <div className="container-lg mt-5" style={containerStyle}>
+      <div className="card shadow">
+        <div className="card-body">
+          <h2 className="card-title mt-3 mb-4">Editar Categoria</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-3 d-flex justify-content-center">
+              <label htmlFor="description" className="col-sm-4 col-form-label">
+                Nome da Categoria:
+              </label>
+              <div className="col-sm-6">
+                <input
+                  type="text"
+                  placeholder="Nome da Categoria"
+                  value={description}
+                  onChange={e => setDescription(e.target.value)}
+                  className='form-control'
+                />
+              </div>
+            </div>
 
-        <Link to="/categories" className="btn btn-warning mt-3">
-          Voltar
-        </Link>
-      </form>
+            <div className="row mb-3">
+              <div className="col-sm-11 d-flex justify-content-end">
+                <button type="submit" className="btn btn-primary me-2">Atualizar</button>
+                <button className="btn btn-warning" onClick={handleButtonClick}>Voltar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
