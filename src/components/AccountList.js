@@ -111,7 +111,7 @@ const AccountList = () => {
       <DataTable data={accounts} columns={columns} />
 
       <Link to="/accounts/create" className="btn btn-success mt-3 mx-3">
-        Criar Nova Conta
+        Criar Conta
       </Link>
 
       <Link to="/" className="btn btn-warning mt-3">
