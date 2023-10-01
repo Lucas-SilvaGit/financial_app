@@ -35,29 +35,63 @@ const AccountEdit = () => {
       });
   };
 
+  const containerStyle = {
+    maxWidth: '700px',
+    margin: '0 auto',
+  };
+
+  const handleButtonClick = () => {
+    navigate('/accounts');
+  };
+
   return (
-    <div>
-      <h2>Editar Conta</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nome da Conta"
-          value={name}
-          onChange={e => setName(e.target.value)}
-        />
+    <div className="container-lg mt-5" style={containerStyle}>
+      <div className="card shadow">
+        <div className="card-body">
+          <h2 className="card-title mt-3 mb-4">Editar Conta</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="row mb-3 d-flex justify-content-center">
+              <label htmlFor="name" className="col-sm-3 col-form-label">
+                Nome da Conta:
+              </label>
+              <div className="col-sm-6">
+                <input
+                  type="text"
+                  id="name"
+                  placeholder="Nome da Conta"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                  className="form-control"
+                />
+              </div>
+            </div>
 
-        <input
-          type="number"
-          placeholder="Saldo da Conta"
-          value={balance}
-          onChange={e => setBalance(parseFloat(e.target.value))}
-        />
-        <button type="submit" className="btn btn-primary mt-3">Atualizar</button>
+            <div className="row mb-3 d-flex justify-content-center">
+              <label htmlFor="balance" className="col-sm-3 col-form-label">
+                Saldo:
+              </label>
+              <div className="col-sm-6">
+                <input
+                  type="number"
+                  placeholder="Saldo"
+                  value={balance}
+                  onChange={() => {}}
+                  disabled
+                  className="form-control"
+                />
+              </div>
+            </div>
+            
+            <div className="row mb-3">
+              <div className="col-sm-10 offset-sm-4">
+                <button type="submit" className="btn btn-primary me-3">Atualizar</button>
 
-        <Link to="/accounts" className="btn btn-warning mt-3">
-          Voltar
-        </Link>
-      </form>
+                <button className="btn btn-warning" onClick={handleButtonClick}>Voltar</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
