@@ -38,6 +38,10 @@ const CategoryEdit = () => {
     margin: '0 auto',
   };
 
+  const handleButtonClick = () => {
+    navigate('/categories');
+  };
+
   return (
     <div>
       <h2>Editar Categoria</h2>
