@@ -20,6 +20,11 @@ const CategoryForm = () => {
       });
   };
 
+  const containerStyle = {
+    maxWidth: '700px',
+    margin: '0 auto',
+  };
+
   return (
     <div>
       <h2>Criar Nova Categoria</h2>
