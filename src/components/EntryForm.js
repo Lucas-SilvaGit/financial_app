@@ -63,6 +63,11 @@ const EntryForm = () => {
       });
   };
 
+  const containerStyle = {
+    maxWidth: '700px',
+    margin: '0 auto',
+  };
+
   return (
     <div>
       <h2>Criar Nova Entrada</h2>
