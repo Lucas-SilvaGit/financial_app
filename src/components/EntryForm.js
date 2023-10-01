@@ -68,6 +68,10 @@ const EntryForm = () => {
     margin: '0 auto',
   };
 
+  const handleButtonClick = () => {
+    navigate('/entries');
+  };
+
   return (
     <div>
       <h2>Criar Nova Entrada</h2>
