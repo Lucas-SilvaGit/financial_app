@@ -52,12 +52,12 @@ const CategoryList = () => {
   ]
 
   return (
-    <div className="container-lg">
+    <div className="container-lg mt-3 mb-3">
       <h2>Lista de Categorias</h2>
       <DataTable data={categories} columns={columns} />
 
-      <Link to="/categories/create" className="btn btn-success mt-3">
-        Criar Nova Categoria
+      <Link to="/categories/create" className="btn btn-success mt-3 mx-3">
+        Criar Categoria
       </Link>
 
       <Link to="/" className="btn btn-warning mt-3">
