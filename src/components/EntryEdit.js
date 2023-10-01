@@ -74,6 +74,10 @@ const EntryEdit = () => {
     margin: '0 auto',
   };
 
+  const handleButtonClick = () => {
+    navigate('/entries');
+  };
+
   return (
     <div>
       <h2>Editar Conta</h2>
