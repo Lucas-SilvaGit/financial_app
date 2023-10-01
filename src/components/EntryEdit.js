@@ -69,6 +69,11 @@ const EntryEdit = () => {
       });
   };
 
+  const containerStyle = {
+    maxWidth: '700px',
+    margin: '0 auto',
+  };
+
   return (
     <div>
       <h2>Editar Conta</h2>
