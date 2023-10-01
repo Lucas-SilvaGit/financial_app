@@ -25,6 +25,10 @@ const CategoryForm = () => {
     margin: '0 auto',
   };
 
+  const handleButtonClick = () => {
+    navigate('/accounts');
+  };
+
   return (
     <div>
       <h2>Criar Nova Categoria</h2>
