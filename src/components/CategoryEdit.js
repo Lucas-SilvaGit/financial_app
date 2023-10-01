@@ -33,6 +33,11 @@ const CategoryEdit = () => {
       });
   };
 
+  const containerStyle = {
+    maxWidth: '700px',
+    margin: '0 auto',
+  };
+
   return (
     <div>
       <h2>Editar Categoria</h2>
