@@ -152,7 +152,7 @@ const EntryList = () => {
   const columns = [
     { key: 'description', title: 'Descrição' },
     { key: 'value', title: 'Valor' },
-    { key: 'date', title: 'Data' },
+    { key: 'formatted_date', title: 'Data' },
     { key: 'billed', title: 'Status', render: (entry) => (entry.billed ? 'Faturado' : 'Não Faturado') },
     { key: 'entry_type', title: 'Tipo', render: (entry) => (entry.entry_type === 'revenue' ? 'Receita' : 'Despesa') },
     { key: 'category_id', title: 'Categoria', render: (entry) => categoryDescriptions[entry.category_id] || 'N/A' },
