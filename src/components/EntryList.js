@@ -10,6 +10,7 @@ const EntryList = () => {
   const [accountDescriptions, setAccountDescriptions] = useState({});
   const [descriptionFilter, setDescriptionFilter] = useState('');
   const [valueFilter, setValueFilter] = useState('');
+  const [filterDate, setFilterDate] = useState('');
   const [billedFilter, setBilledFilter] = useState('all');
   const [entryTypeFilter, setEntryTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
@@ -71,6 +72,14 @@ const EntryList = () => {
     );
     setFilteredEntries(filteredValue);
   }, [valueFilter, entries]);
+
+  //  Função para filtrar entradas com base na data
+  useEffect(() => {
+    const filteredDate = entries.filter(entry =>
+      entry.date === filterDate
+    );
+    setFilteredEntries(filteredDate);
+  }, [entries, filterDate]);
 
   // Função para filtrar entradas com base no status de billed
   useEffect(() => {
@@ -143,6 +152,7 @@ const EntryList = () => {
   const handleClearFilters = () => {
     setDescriptionFilter('');
     setValueFilter('');
+    setFilterDate('');
     setBilledFilter('');
     setEntryTypeFilter('');
     setCategoryFilter('');
@@ -188,7 +198,7 @@ const EntryList = () => {
           </label>
         </div>
 
-        <div className='col-3'>
+        <div className='col-2'>
           <input
             type="text"
             placeholder="Descrição"
@@ -198,7 +208,7 @@ const EntryList = () => {
           />
         </div>
 
-        <div className='col-3'>
+        <div className='col-2'>
           <input
             type="text"
             placeholder="Valor"
@@ -213,7 +223,17 @@ const EntryList = () => {
           />
         </div>
 
-        <div className='col-3'>
+        <div className='col-2'>
+          <input
+            type="date"
+            placeholder="Data"
+            value={filterDate}
+            onChange={(e) => setFilterDate(e.target.value)}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-2'>
           <select
             value={billedFilter}
             onChange={(e) => setBilledFilter(e.target.value)}
@@ -225,7 +245,7 @@ const EntryList = () => {
           </select>
         </div>
 
-        <div className='col-3'>
+        <div className='col-2'>
           <select
             value={entryTypeFilter}
             onChange={(e) => setEntryTypeFilter(e.target.value)}
@@ -237,7 +257,7 @@ const EntryList = () => {
           </select>
         </div>
 
-        <div className='col-3'>
+        <div className='col-2'>
           <select
             value={categoryFilter}
             onChange={(e) => setCategoryFilter(e.target.value)}
@@ -252,7 +272,7 @@ const EntryList = () => {
           </select>
         </div>
 
-        <div className='col-3'>
+        <div className='col-2'>
           <select
             value={accountFilter}
             onChange={(e) => setAccountFilter(e.target.value)}
@@ -267,7 +287,7 @@ const EntryList = () => {
           </select>
         </div>
 
-        <div className='col-3'>
+        <div className='col-auto mx-auto'>
           <button className="btn btn-primary" onClick={handleClearFilters}>Limpar Filtros</button>
         </div>
       </form>
