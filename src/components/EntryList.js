@@ -15,6 +15,7 @@ const EntryList = () => {
   const [entryTypeFilter, setEntryTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [accountFilter, setAccountFilter] = useState('all');
+  const [showFilters, setShowFilters] = useState(false);
 
   useEffect(() => {
     // Função para buscar descrições de categorias e contas
@@ -187,17 +188,19 @@ const EntryList = () => {
     },
   ];
 
+  const toggleFilters = () => {
+    setShowFilters(!showFilters);
+  };
+
   return (
     <div className='container-lg mt-3 mb-3'>
       <h2>Lista de Receitas e Despesas</h2>
+      <button className='btn btn-primary mt-3 mb-3' onClick={toggleFilters}>
+        {showFilters ? 'Esconder Filtros' : 'Filtrar'}
+      </button>
       
-      <form className='row g-3 mt-3 mb-3 align-items-center'>
-      <div className='col-auto'>
-          <label className='col-form-label'>
-            Pesquisar:
-          </label>
-        </div>
-
+      {showFilters && (
+      <form className='row g-3 mb-3 px-3'>
         <div className='col-2'>
           <input
             type="text"
@@ -287,10 +290,10 @@ const EntryList = () => {
           </select>
         </div>
 
-        <div className='col-auto mx-auto'>
+        <div className='col-auto'>
           <button className="btn btn-primary" onClick={handleClearFilters}>Limpar Filtros</button>
         </div>
-      </form>
+      </form>)}
 
       <DataTable data={filteredEntries} columns={columns} />
 
