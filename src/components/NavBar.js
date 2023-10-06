@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container">
         <Link className="navbar-brand" to="/">
           Controle Financeiro
@@ -19,10 +19,10 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">
+              <Link className="nav-link" to="/">
                 Dashboard
               </Link>
             </li>
@@ -54,7 +54,6 @@ const Navbar = () => {
               >
                 <img
                   src="profile-image.jpg" // Substitua pelo URL da imagem do perfil
-                  alt="Profile"
                   className="profile-image"
                 />
               </a>
