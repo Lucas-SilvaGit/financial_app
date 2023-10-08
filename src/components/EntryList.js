@@ -193,7 +193,7 @@ const EntryList = () => {
   };
 
   return (
-    <div className='container-lg mt-3 mb-3'>
+    <div className='container-lg mb-3'>
       <h2>Lista de Receitas e Despesas</h2>
       <button className='btn btn-primary mt-3 mb-3' onClick={toggleFilters}>
         {showFilters ? 'Esconder Filtros' : 'Filtrar'}
