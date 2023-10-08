@@ -52,7 +52,7 @@ const CategoryList = () => {
   ]
 
   return (
-    <div className="container-lg mt-3 mb-3">
+    <div className="container-lg mb-3">
       <h2>Lista de Categorias</h2>
       <DataTable data={categories} columns={columns} />
 
