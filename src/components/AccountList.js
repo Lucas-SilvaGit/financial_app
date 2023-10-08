@@ -69,7 +69,7 @@ const AccountList = () => {
 
 
   return (
-    <div className='container-lg mt-3 mb-3'>
+    <div className='container-lg mb-3'>
       <h2>Lista de Contas</h2>
 
       <form className='row g-3 mt-3 mb-3 align-items-center'>
