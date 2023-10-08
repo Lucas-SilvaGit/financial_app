@@ -27,43 +27,44 @@ const DashboardOverview = () => {
     fetchDashboardData();
   }, [year, month]);
 
-  const handleFilterClick = () => {
-    fetchDashboardData();
-  };
-
   return (
-    <div className='card shadow mb-3 col-4 mx-auto'>
-      <div className="card-body">
-        <div>
-          <h2 className="card-title">Visão Geral</h2>
-          <label htmlFor="month" className="col-form-label">
-            Mês:
-          </label>
-          <div className="col-sm-6">
-            <input
-              type="number"
-              placeholder="Ano"
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
-              className="form-control"
-            />
-          </div>
+    <div className='col-12'>
+      <div className='col-4'>
+        <label htmlFor="year" className="col-form-label">
+          Mês:
+        </label>
+        <div className="col-sm-6">
           <input
             type="number"
-            placeholder="Mês"
-            value={month}
-            onChange={(e) => setMonth(e.target.value)}
+            placeholder="Ano"
+            value={year}
+            onChange={(e) => setYear(e.target.value)}
+            className="form-control"
           />
-          <button onClick={handleFilterClick}>Filtrar</button>
         </div>
-        {dashboardData && (
-          <div>
-            <h2>Dados do Painel de Controle</h2>
-            <p>Total de Receitas: {dashboardData.totalReceitas}</p>
-            <p>Total de Despesas: {dashboardData.totalDespesas}</p>
-            <p>Saldo Total: {dashboardData.saldoTotal}</p>
-          </div>
-        )}
+        <label htmlFor="month" className="col-form-label">
+          Ano:
+        </label>
+        <input
+          type="number"
+          placeholder="Mês"
+          value={month}
+          onChange={(e) => setMonth(e.target.value)}
+          className="form-control"
+        />
+      </div>
+      
+      <div className='card shadow mt-5 mb-3 col-4'>
+        <div className="card-body">
+          <h2 className="card-title">Visão Geral</h2>
+          {dashboardData && (
+            <div>
+              <p>Receitas: {dashboardData.totalRevenues}</p>
+              <p>Despesas: {dashboardData.totalExpenses}</p>
+              <p>Saldo Total: {dashboardData.balanceTotal}</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
