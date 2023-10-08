@@ -60,6 +60,7 @@ const DashboardOverview = () => {
           {dashboardData && (
             <div>
               <p>Receitas: {dashboardData.totalRevenues}</p>
+              <p>Previsto: {dashboardData.totalRevenuesExpected}</p>
               <p>Despesas: {dashboardData.totalExpenses}</p>
               <p>Saldo Total: {dashboardData.balanceTotal}</p>
             </div>
