@@ -59,12 +59,12 @@ const DashboardOverview = () => {
           <h2 className="card-title">Visão Geral</h2>
           {dashboardData && (
             <div>
-              <p>Receitas: {dashboardData.totalRevenues}</p>
-              <p>Previsto: {dashboardData.totalRevenuesExpected}</p>
-              <p>Despesas: {dashboardData.totalExpenses}</p>
-              <p>Previsto: {dashboardData.totalExpensesExpected}</p>
-              <p>Saldo Total: {dashboardData.balanceTotal}</p>
-              <p>Saldo Total: {dashboardData.balanceTotalExpected}</p>
+              <p>Receitas: R$: {dashboardData.totalRevenues}</p>
+              <p>Previsto: R$: {dashboardData.totalRevenuesExpected}</p>
+              <p>Despesas: R$: {dashboardData.totalExpenses}</p>
+              <p>Previsto: R$: {dashboardData.totalExpensesExpected}</p>
+              <p>Saldo Total: R$: {dashboardData.balanceTotal}</p>
+              <p>Saldo Total: R$: {dashboardData.balanceTotalExpected}</p>
             </div>
           )}
         </div>
