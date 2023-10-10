@@ -54,17 +54,49 @@ const DashboardOverview = () => {
         />
       </div>
       
-      <div className='card shadow mt-5 mb-3 col-4'>
-        <div className="card-body">
+      <div className='card shadow mt-5 mb-3 col-sm-4'>
+        <div className='card-header'>
           <h2 className="card-title">Visão Geral</h2>
+        </div>
+        <div className="card-body">  
           {dashboardData && (
             <div>
-              <p>Receitas: R$: {dashboardData.totalRevenues}</p>
-              <p>Previsto: R$: {dashboardData.totalRevenuesExpected}</p>
-              <p>Despesas: R$: {dashboardData.totalExpenses}</p>
-              <p>Previsto: R$: {dashboardData.totalExpensesExpected}</p>
-              <p>Saldo Total: R$: {dashboardData.balanceTotal}</p>
-              <p>Saldo Total: R$: {dashboardData.balanceTotalExpected}</p>
+              <div>
+                <span className="circle green-circle mt-1">
+                  <span className="symbol">+</span>
+                </span>
+
+                <p className='titles mb-0 mt-1'>
+                  Receitas R${dashboardData.totalRevenues.toFixed(2)}
+                </p>
+
+                <p>Previsto R${dashboardData.totalRevenuesExpected.toFixed(2)}</p>
+              </div>
+              
+              <div>
+                <span className="circle red-circle mt-1">
+                  <span className="symbol">-</span>
+                </span>
+                
+                <p className='titles mb-0 mt-1'>  
+                  Despesas R${dashboardData.totalExpenses.toFixed(2)}
+                </p>
+
+                <p>Previsto R${dashboardData.totalExpensesExpected.toFixed(2)}</p>
+              </div>
+
+              <div>
+                <span className="circle blue-circle mt-1">
+                  <span className="symbol">C</span>
+                </span>
+
+                <p className='titles mb-0 mt-1'>
+                  Saldo Total R${dashboardData.balanceTotal.toFixed(2)}
+                </p>
+
+                <p>Previsto R${dashboardData.balanceTotalExpected.toFixed(2)}</p>
+              </div>
+
             </div>
           )}
         </div>
