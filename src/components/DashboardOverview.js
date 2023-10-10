@@ -28,12 +28,25 @@ const DashboardOverview = () => {
   }, [year, month]);
 
   return (
-    <div className='col-12'>
-      <div className='col-4'>
-        <label htmlFor="year" className="col-form-label">
-          Mês:
-        </label>
-        <div className="col-sm-6">
+    <div className='col-lg-12'>
+      <div className='d-flex justify-content-center'>
+        <div className="col-lg-1">
+          <label htmlFor="month" className="col-form-label">
+            Mês:
+          </label>
+          <input
+            type="number"
+            placeholder="Mês"
+            value={month}
+            onChange={(e) => setMonth(e.target.value)}
+            className="form-control"
+          />
+        </div>
+
+        <div className="col-lg-1">
+          <label htmlFor="year" className="col-form-label">
+            Ano:
+          </label>
           <input
             type="number"
             placeholder="Ano"
@@ -42,19 +55,9 @@ const DashboardOverview = () => {
             className="form-control"
           />
         </div>
-        <label htmlFor="month" className="col-form-label">
-          Ano:
-        </label>
-        <input
-          type="number"
-          placeholder="Mês"
-          value={month}
-          onChange={(e) => setMonth(e.target.value)}
-          className="form-control"
-        />
       </div>
       
-      <div className='card shadow mt-5 mb-3 col-sm-4'>
+      <div className='card shadow mt-5 mb-3 col-md-12 col-lg-4'>
         <div className='card-header'>
           <h2 className="card-title">Visão Geral</h2>
         </div>
@@ -87,7 +90,7 @@ const DashboardOverview = () => {
 
               <div>
                 <span className="circle blue-circle mt-1">
-                  <span className="symbol">C</span>
+                  <span className="symbol">T</span>
                 </span>
 
                 <p className='titles mb-0 mt-1'>
