@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DashboardOverview from './DashboardOverview';
 
 const Home = () => {
   return (
-    <div>
-      <h1> Bem-vindo a pagina inicial</h1>
+    <div className="container-lg">
+      <h1> Dashboard </h1>
+      <DashboardOverview/>
     </div>
   );
 };
