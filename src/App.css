@@ -19,15 +19,15 @@
 }
 
 .green-circle {
-  background-color: #2A7E3C;
+  background-color: #4B9419;
 }
 
 .red-circle {
-  background-color: #AE3434;
+  background-color: #AC1C1A;
 }
 
 .blue-circle {
-  background-color: #0B6CC5;
+  background-color: #316CBE;
 }
 
 /* Classes para os símbolos dentro dos círculos */
@@ -37,14 +37,4 @@
   font-size: 36px;
   text-align: center;
   line-height: 44px; /* Ajuste o line-height para centralizar verticalmente o símbolo */
-}
-
-.titles {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 24px;
-  line-height: 29px;
-
-  color: #000000;
-  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.20);
 }

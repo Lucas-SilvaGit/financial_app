@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Grid, Card, Container } from 'tabler-react';
+import ApexCharts from 'apexcharts';
 
 const DashboardOverview = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -27,8 +29,41 @@ const DashboardOverview = () => {
     fetchDashboardData();
   }, [year, month]);
 
+  // function para o  grafico pizza chart
+  useEffect(() => {
+    const options = {
+      chart: {
+        type: 'donut',
+        fontFamily: 'inherit',
+        height: 240,
+        sparkline: {
+          enabled: false
+        },
+        animations: {
+          enabled: true
+        },
+      },
+      fill: {
+        opacity: 1,
+      },
+      series: [44, 55, 12, 2],
+      labels: ['Direct', 'Affiliate', 'E-mail', 'Other'],
+      tooltip: {
+        theme: 'dark'
+      },
+      grid: {
+        strokeDashArray: 4,
+      },
+    };
+
+    const chart = new ApexCharts(document.getElementById('chart-saving'), options);
+    chart.render();
+  }, []);
+
+
   return (
-    <div className='col-lg-12'>
+
+    <Container>
       <div className='d-flex justify-content-center'>
         <div className="col-lg-1">
           <label htmlFor="month" className="col-form-label">
@@ -56,55 +91,75 @@ const DashboardOverview = () => {
           />
         </div>
       </div>
-      
-      <div className='card shadow mt-5 mb-3 col-md-12 col-lg-4'>
-        <div className='card-header'>
-          <h2 className="card-title">Visão Geral</h2>
-        </div>
-        <div className="card-body">  
-          {dashboardData && (
-            <div>
-              <div>
-                <span className="circle green-circle mt-1">
-                  <span className="symbol">+</span>
-                </span>
 
-                <p className='titles mb-0 mt-1'>
-                  Receitas R${dashboardData.totalRevenues.toFixed(2)}
-                </p>
+      <Grid.Row>
+        <Grid.Col sm={12} md={12} lg={4}>
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Visão Geral</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              {dashboardData && (
+                <div>
+                  <div>
+                    <span className="circle green-circle">
+                      <span className="symbol">+</span>
+                    </span>
 
-                <p>Previsto R${dashboardData.totalRevenuesExpected.toFixed(2)}</p>
-              </div>
-              
-              <div>
-                <span className="circle red-circle mt-1">
-                  <span className="symbol">-</span>
-                </span>
-                
-                <p className='titles mb-0 mt-1'>  
-                  Despesas R${dashboardData.totalExpenses.toFixed(2)}
-                </p>
+                    <div className="mt-2">
+                      <h3 className="mb-0">
+                        Receitas R$ {dashboardData.totalRevenues.toFixed(2)}
+                      </h3>
 
-                <p>Previsto R${dashboardData.totalExpensesExpected.toFixed(2)}</p>
-              </div>
+                      <p>Previsto R$ {dashboardData.totalRevenuesExpected.toFixed(2)}</p>
+                    </div>
+                  </div>
 
-              <div>
-                <span className="circle blue-circle mt-1">
-                  <span className="symbol">T</span>
-                </span>
+                  <div>
+                    <span className="circle red-circle">
+                      <span className="symbol">-</span>
+                    </span>
 
-                <p className='titles mb-0 mt-1'>
-                  Saldo Total R${dashboardData.balanceTotal.toFixed(2)}
-                </p>
+                    <div className="mt-2">
+                      <h3 className="mb-0">
+                        Despesas R$ {dashboardData.totalExpenses.toFixed(2)}
+                      </h3>
 
-                <p>Previsto R${dashboardData.balanceTotalExpected.toFixed(2)}</p>
-              </div>
+                      <p>Previsto R$ {dashboardData.totalExpensesExpected.toFixed(2)}</p>
+                    </div>
+                  </div>
 
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+                  <div>
+                    <span className="circle blue-circle">
+                      <span className="symbol">C</span>
+                    </span>
+
+                    <div className="mt-2">
+                      <h3 className="mb-0">
+                        Contas R$ {dashboardData.balanceTotal.toFixed(2)}
+                      </h3>
+
+                      <p>Previsto R$ {dashboardData.balanceTotalExpected.toFixed(2)}</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </Card.Body>
+          </Card>
+        </Grid.Col>
+
+        <Grid.Col sm={12} md={12} lg={8}>
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Economizado</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <div id="chart-saving" className="chart-lg"></div>
+            </Card.Body>
+          </Card>
+        </Grid.Col>
+      </Grid.Row>
+    </Container>
   );
 };
 
