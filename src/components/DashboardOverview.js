@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, Container } from 'tabler-react';
+import ApexCharts from 'apexcharts';
 
 const DashboardOverview = () => {
   const [dashboardData, setDashboardData] = useState(null);
@@ -27,6 +28,38 @@ const DashboardOverview = () => {
   useEffect(() => {
     fetchDashboardData();
   }, [year, month]);
+
+  // function para o  grafico pizza chart
+  useEffect(() => {
+    const options = {
+      chart: {
+        type: 'donut',
+        fontFamily: 'inherit',
+        height: 240,
+        sparkline: {
+          enabled: false
+        },
+        animations: {
+          enabled: true
+        },
+      },
+      fill: {
+        opacity: 1,
+      },
+      series: [44, 55, 12, 2],
+      labels: ['Direct', 'Affiliate', 'E-mail', 'Other'],
+      tooltip: {
+        theme: 'dark'
+      },
+      grid: {
+        strokeDashArray: 4,
+      },
+    };
+
+    const chart = new ApexCharts(document.getElementById('chart-saving'), options);
+    chart.render();
+  }, []);
+
 
   return (
 
@@ -111,6 +144,17 @@ const DashboardOverview = () => {
                   </div>
                 </div>
               )}
+            </Card.Body>
+          </Card>
+        </Grid.Col>
+
+        <Grid.Col sm={12} md={12} lg={8}>
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Economizado</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <div id="chart-saving" className="chart-lg"></div>
             </Card.Body>
           </Card>
         </Grid.Col>
