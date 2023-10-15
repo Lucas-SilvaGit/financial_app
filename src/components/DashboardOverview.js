@@ -26,7 +26,7 @@ const DashboardOverview = () => {
 
   const fetchTopEntries = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/v1/top-entries/${year}/${month}`);
+      const response = await fetch(`http://localhost:3001/v1/dashboard/top_entries/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
         setDashboardData({ ...dashboardData, topEntries: data }); // Adicione topEntries ao objeto dashboardData
@@ -136,13 +136,22 @@ const DashboardOverview = () => {
             </Card.Header>
             <Card.Body>
               {dashboardData && dashboardData.topEntries && (
-                <ul>
-                  {dashboardData.topEntries.map((entry) => (
-                    <li key={entry.description}>
-                      {entry.description}: R$ {entry.value.toFixed(2)}
-                    </li>
-                  ))}
-                </ul>
+                <div className="row g-3">
+                {dashboardData.topEntries.map((entry, index) => (
+                  <div className="col-6" key={index}>
+                    <div className="row g-3 align-items-center">
+                      <div className="col text-truncate">
+                        <a className="text-reset d-block text-truncate">
+                          {entry.description}
+                        </a>
+                        <div className="text-secondary text-truncate mt-n1">
+                          R$ {entry.value.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
               )}
             </Card.Body>
           </Card>
