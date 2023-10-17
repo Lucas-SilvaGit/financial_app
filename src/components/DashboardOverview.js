@@ -155,6 +155,32 @@ const DashboardOverview = () => {
               )}
             </Card.Body>
           </Card>
+
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Top 5 Despesas</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              {dashboardData && dashboardData.topEntriesExpenses && (
+                <div className="row g-3">
+                {dashboardData.topEntriesExpenses.map((entry, index) => (
+                  <div className="col-6" key={index}>
+                    <div className="row g-3 align-items-center">
+                      <div className="col text-truncate">
+                        <a className="text-reset d-block text-truncate">
+                          {entry.description}
+                        </a>
+                        <div className="text-secondary text-truncate mt-n1">
+                          R$ {entry.value.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              )}
+            </Card.Body>
+          </Card>
         </Grid.Col>
       </Grid.Row>
     </Container>
