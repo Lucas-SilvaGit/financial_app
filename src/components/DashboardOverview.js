@@ -132,12 +132,12 @@ const DashboardOverview = () => {
         <Grid.Col sm={12} md={12} lg={8}>
           <Card className='mt-5'>
             <Card.Header>
-              <Card.Title>Top 10 movimentações</Card.Title>
+              <Card.Title>Top 5 Receitas</Card.Title>
             </Card.Header>
             <Card.Body>
-              {dashboardData && dashboardData.topEntries && (
+              {dashboardData && dashboardData.topEntriesRevenues && (
                 <div className="row g-3">
-                {dashboardData.topEntries.map((entry, index) => (
+                {dashboardData.topEntriesRevenues.map((entry, index) => (
                   <div className="col-6" key={index}>
                     <div className="row g-3 align-items-center">
                       <div className="col text-truncate">
