@@ -3,6 +3,7 @@ import { Grid, Card, Container } from 'tabler-react';
 
 const DashboardOverview = () => {
   const [dashboardData, setDashboardData] = useState(null);
+  const [topEntries] = useState(null);
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear().toString();
   const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
@@ -15,7 +16,7 @@ const DashboardOverview = () => {
       const response = await fetch(`http://localhost:3001/v1/dashboard/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
-        setDashboardData(data);
+        setDashboardData(data, topEntries);
       } else {
         console.error('Erro ao buscar dados da visão geral');
       }
@@ -24,23 +25,8 @@ const DashboardOverview = () => {
     }
   };
 
-  const fetchTopEntries = async () => {
-    try {
-      const response = await fetch(`http://localhost:3001/v1/dashboard/top_entries/${year}/${month}`);
-      if (response.ok) {
-        const data = await response.json();
-        setDashboardData({ ...dashboardData, topEntries: data }); // Adicione topEntries ao objeto dashboardData
-      } else {
-        console.error('Erro ao buscar as 10 maiores entradas');
-      }
-    } catch (error) {
-      console.error('Erro ao buscar as 10 maiores entradas', error);
-    }
-  };
-
   useEffect(() => {
     fetchDashboardData();
-    fetchTopEntries();
   }, [year, month]);
 
   return (
