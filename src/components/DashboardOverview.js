@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, Container } from 'tabler-react';
-import ApexCharts from 'apexcharts';
 
 const DashboardOverview = () => {
   const [dashboardData, setDashboardData] = useState(null);
+  const [topEntries] = useState(null);
   const currentDate = new Date();
   const currentYear = currentDate.getFullYear().toString();
-  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0'); // +1 porque os meses começam de 0
+  const currentMonth = String(currentDate.getMonth() + 1).padStart(2, '0');
 
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(currentMonth);
@@ -16,12 +16,12 @@ const DashboardOverview = () => {
       const response = await fetch(`http://localhost:3001/v1/dashboard/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
-        setDashboardData(data);
+        setDashboardData(data, topEntries);
       } else {
-        console.error('Erro ao buscar dados da visao geral');
+        console.error('Erro ao buscar dados da visão geral');
       }
     } catch (error) {
-      console.error('Erro ao buscar dados da visao geral', error);
+      console.error('Erro ao buscar dados da visão geral', error);
     }
   };
 
@@ -29,40 +29,7 @@ const DashboardOverview = () => {
     fetchDashboardData();
   }, [year, month]);
 
-  // function para o  grafico pizza chart
-  useEffect(() => {
-    const options = {
-      chart: {
-        type: 'donut',
-        fontFamily: 'inherit',
-        height: 240,
-        sparkline: {
-          enabled: false
-        },
-        animations: {
-          enabled: true
-        },
-      },
-      fill: {
-        opacity: 1,
-      },
-      series: [44, 55, 12, 2],
-      labels: ['Direct', 'Affiliate', 'E-mail', 'Other'],
-      tooltip: {
-        theme: 'dark'
-      },
-      grid: {
-        strokeDashArray: 4,
-      },
-    };
-
-    const chart = new ApexCharts(document.getElementById('chart-saving'), options);
-    chart.render();
-  }, []);
-
-
   return (
-
     <Container>
       <div className='d-flex justify-content-center'>
         <div className="col-lg-1">
@@ -151,10 +118,53 @@ const DashboardOverview = () => {
         <Grid.Col sm={12} md={12} lg={8}>
           <Card className='mt-5'>
             <Card.Header>
-              <Card.Title>Economizado</Card.Title>
+              <Card.Title>Top 5 Receitas</Card.Title>
             </Card.Header>
             <Card.Body>
-              <div id="chart-saving" className="chart-lg"></div>
+              {dashboardData && dashboardData.topEntriesRevenues && (
+                <div className="row g-3">
+                {dashboardData.topEntriesRevenues.map((entry, index) => (
+                  <div className="col-6" key={index}>
+                    <div className="row g-3 align-items-center">
+                      <div className="col text-truncate">
+                        <a className="text-reset d-block text-truncate">
+                          {entry.description}
+                        </a>
+                        <div className="text-secondary text-truncate mt-n1">
+                          R$ {entry.value.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              )}
+            </Card.Body>
+          </Card>
+
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Top 5 Despesas</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              {dashboardData && dashboardData.topEntriesExpenses && (
+                <div className="row g-3">
+                {dashboardData.topEntriesExpenses.map((entry, index) => (
+                  <div className="col-6" key={index}>
+                    <div className="row g-3 align-items-center">
+                      <div className="col text-truncate">
+                        <a className="text-reset d-block text-truncate">
+                          {entry.description}
+                        </a>
+                        <div className="text-secondary text-truncate mt-n1">
+                          R$ {entry.value.toFixed(2)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              )}
             </Card.Body>
           </Card>
         </Grid.Col>
