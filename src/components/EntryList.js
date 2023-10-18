@@ -321,11 +321,11 @@ const EntryList = () => {
 
       <DataTable data={filteredEntries} columns={columns} />
 
-      <Link to="/entries/create" className="btn btn-success mt-3 mx-3">
+      <Link to="/entries/create" className="btn btn-success mt-3 mb-5 mx-3">
         Criar Nova Entrada
       </Link>
 
-      <Link to="/" className="btn btn-warning mt-3">
+      <Link to="/" className="btn btn-warning mt-3 mb-5">
         Voltar
       </Link>
     </div>
