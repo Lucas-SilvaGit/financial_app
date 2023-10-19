@@ -11,12 +11,14 @@ const DashboardOverview = () => {
   const [year, setYear] = useState(currentYear);
   const [month, setMonth] = useState(currentMonth);
 
+  const [accountBalance] = useState();
+
   const fetchDashboardData = async () => {
     try {
       const response = await fetch(`http://localhost:3001/v1/dashboard/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
-        setDashboardData(data, topEntries);
+        setDashboardData(data, topEntries, accountBalance);
       } else {
         console.error('Erro ao buscar dados da visão geral');
       }
@@ -59,9 +61,9 @@ const DashboardOverview = () => {
         </div>
       </div>
 
-      <Grid.Row>
+      <Grid.Row className='mt-5'>
         <Grid.Col sm={12} md={12} lg={4}>
-          <Card className='mt-5'>
+          <Card>
             <Card.Header>
               <Card.Title>Visão Geral</Card.Title>
             </Card.Header>
@@ -116,6 +118,35 @@ const DashboardOverview = () => {
         </Grid.Col>
 
         <Grid.Col sm={12} md={12} lg={8}>
+          <Card>
+            <Card.Header>
+              <Card.Title>Contas</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              {dashboardData && dashboardData.accountBalance && (
+                <div>
+                  {Object.keys(dashboardData.accountBalance).map((accountName) => (
+                    <div key={accountName}>
+                      <p>{accountName}: R$ {dashboardData.accountBalance[accountName].toFixed(2)}</p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </Card.Body>
+            <Card.Footer>
+              <div className="d-flex justify-content-between">
+                <span>Saldo Total de Contas:</span>
+                <span>
+                  {dashboardData?.balanceTotal ? `R$ ${dashboardData.balanceTotal.toFixed(2)}` : 'Carregando...'}
+                </span>
+              </div>
+            </Card.Footer>
+          </Card>
+        </Grid.Col>          
+      </Grid.Row>
+
+      <Grid.Row>
+        <Grid.Col sm={12} md={12} lg={6}>
           <Card className='mt-5'>
             <Card.Header>
               <Card.Title>Top 5 Receitas</Card.Title>
@@ -141,7 +172,9 @@ const DashboardOverview = () => {
               )}
             </Card.Body>
           </Card>
+        </Grid.Col>
 
+        <Grid.Col sm={12} md={12} lg={6}>
           <Card className='mt-5'>
             <Card.Header>
               <Card.Title>Top 5 Despesas</Card.Title>
@@ -168,7 +201,7 @@ const DashboardOverview = () => {
             </Card.Body>
           </Card>
         </Grid.Col>
-      </Grid.Row>
+      </Grid.Row>  
     </Container>
   );
 };
