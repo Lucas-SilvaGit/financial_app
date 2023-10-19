@@ -5,12 +5,13 @@ import DataTable from './DataTable';
 
 const EntryList = () => {
   const [entries, setEntries] = useState([]);
-  const [filteredEntries, setFilteredEntries] = useState([]); // Estado para armazenar entradas filtradas
+  const [filteredEntries, setFilteredEntries] = useState([]);
   const [categoryDescriptions, setCategoryDescriptions] = useState({});
   const [accountDescriptions, setAccountDescriptions] = useState({});
   const [descriptionFilter, setDescriptionFilter] = useState('');
   const [valueFilter, setValueFilter] = useState('');
-  const [filterDate, setFilterDate] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [billedFilter, setBilledFilter] = useState('all');
   const [entryTypeFilter, setEntryTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
@@ -58,6 +59,26 @@ const EntryList = () => {
     fetchEntries();
   }, []);
 
+
+  // Função para filtrar entradas em um range de datas inicial e final.
+  const filterEntriesByDateRange = (entries, startDate, endDate) => {
+    if (!startDate || !endDate) {
+      return entries; // Se as datas de início ou fim não estiverem definidas, retorne todas as entradas.
+    }
+  
+    return entries.filter((entry) => {
+      const entryDate = new Date(entry.date);
+      return entryDate >= new Date(startDate) && entryDate <= new Date(endDate); //verifica se a data da entrada esta entre a data inicial e menor que a data final.
+    });
+  }
+  
+  // hook para alterar os estados quando houver alteração em entries, startdate, enddate
+  useEffect(() => {
+    const filteredByDateRange = filterEntriesByDateRange(entries, startDate, endDate);
+    setFilteredEntries(filteredByDateRange);
+  }, [startDate, endDate, entries]);
+  
+
   // Função para filtrar entradas com base na descrição
   useEffect(() => {
     const filteredDescription = entries.filter(entry =>
@@ -73,14 +94,6 @@ const EntryList = () => {
     );
     setFilteredEntries(filteredValue);
   }, [valueFilter, entries]);
-
-  //  Função para filtrar entradas com base na data
-  useEffect(() => {
-    const filteredDate = entries.filter(entry =>
-      entry.date === filterDate
-    );
-    setFilteredEntries(filteredDate);
-  }, [entries, filterDate]);
 
   // Função para filtrar entradas com base no status de billed
   useEffect(() => {
@@ -153,7 +166,8 @@ const EntryList = () => {
   const handleClearFilters = () => {
     setDescriptionFilter('');
     setValueFilter('');
-    setFilterDate('');
+    setStartDate('');
+    setEndDate('');
     setBilledFilter('');
     setEntryTypeFilter('');
     setCategoryFilter('');
@@ -230,8 +244,18 @@ const EntryList = () => {
           <input
             type="date"
             placeholder="Data"
-            value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className='form-control'
+          />
+        </div>
+
+        <div className='col-2'>
+          <input
+            type="date"
+            placeholder="Data"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
             className='form-control'
           />
         </div>
@@ -297,11 +321,11 @@ const EntryList = () => {
 
       <DataTable data={filteredEntries} columns={columns} />
 
-      <Link to="/entries/create" className="btn btn-success mt-3 mx-3">
+      <Link to="/entries/create" className="btn btn-success mt-3 mb-5 mx-3">
         Criar Nova Entrada
       </Link>
 
-      <Link to="/" className="btn btn-warning mt-3">
+      <Link to="/" className="btn btn-warning mt-3 mb-5">
         Voltar
       </Link>
     </div>
