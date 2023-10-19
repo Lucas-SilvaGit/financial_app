@@ -12,13 +12,14 @@ const DashboardOverview = () => {
   const [month, setMonth] = useState(currentMonth);
 
   const [accountBalance] = useState();
+  const [accountBalanceExpected] = useState();
 
   const fetchDashboardData = async () => {
     try {
       const response = await fetch(`http://localhost:3001/v1/dashboard/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
-        setDashboardData(data, topEntries, accountBalance);
+        setDashboardData(data, topEntries, accountBalance, accountBalanceExpected);
       } else {
         console.error('Erro ao buscar dados da visão geral');
       }
@@ -127,7 +128,11 @@ const DashboardOverview = () => {
                 <div>
                   {Object.keys(dashboardData.accountBalance).map((accountName) => (
                     <div key={accountName}>
-                      <p>{accountName}: R$ {dashboardData.accountBalance[accountName].toFixed(2)}</p>
+                      <h4 className="mb-0">
+                        {accountName}: R$ {dashboardData.accountBalance[accountName].toFixed(2)}
+                      </h4>
+
+                      <p>Previsto: R$ {dashboardData.accountBalanceExpected[accountName].toFixed(2)}</p>
                     </div>
                   ))}
                 </div>
@@ -138,6 +143,12 @@ const DashboardOverview = () => {
                 <span>Saldo Total de Contas:</span>
                 <span>
                   {dashboardData?.balanceTotal ? `R$ ${dashboardData.balanceTotal.toFixed(2)}` : 'Carregando...'}
+                </span>
+              </div>
+              <div className="d-flex justify-content-between">
+                <span>Previsto:</span>
+                <span>
+                  {dashboardData?.balanceTotalExpected ? `R$ ${dashboardData.balanceTotalExpected.toFixed(2)}` : 'Carregando...'}
                 </span>
               </div>
             </Card.Footer>
