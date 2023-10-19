@@ -128,11 +128,15 @@ const DashboardOverview = () => {
                 <div>
                   {Object.keys(dashboardData.accountBalance).map((accountName) => (
                     <div key={accountName}>
-                      <h4 className="mb-0">
-                        {accountName}: R$ {dashboardData.accountBalance[accountName].toFixed(2)}
-                      </h4>
+                      <div className="d-flex justify-content-between">
+                        <h3 className="mb-0">{accountName}</h3>
+                        <h4 className="mb-0">R$ {dashboardData.accountBalance[accountName].toFixed(2)}</h4>
+                      </div>
 
-                      <p>Previsto: R$ {dashboardData.accountBalanceExpected[accountName].toFixed(2)}</p>
+                      <div className="d-flex justify-content-between">
+                        <p>Previsto:</p> 
+                        <p className="mt-0">R$ {dashboardData.accountBalanceExpected[accountName].toFixed(2)}</p>
+                      </div>
                     </div>
                   ))}
                 </div>
