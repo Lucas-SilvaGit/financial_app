@@ -173,7 +173,7 @@ const DashboardOverview = () => {
                   <div className="col-6" key={index}>
                     <div className="row g-3 align-items-center">
                       <div className="col text-truncate">
-                        <a className="text-reset d-block text-truncate">
+                        <a className="text-reset d-block text-truncate text-capitalize">
                           {entry.description}
                         </a>
                         <div className="text-secondary text-truncate mt-n1">
@@ -201,7 +201,7 @@ const DashboardOverview = () => {
                   <div className="col-6" key={index}>
                     <div className="row g-3 align-items-center">
                       <div className="col text-truncate">
-                        <a className="text-reset d-block text-truncate">
+                        <a className="text-reset d-block text-truncate text-capitalize">
                           {entry.description}
                         </a>
                         <div className="text-secondary text-truncate mt-n1">
