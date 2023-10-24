@@ -13,6 +13,9 @@ import EntryList from './components/EntryList';
 import EntryForm from './components/EntryForm';
 import EntryEdit from './components/EntryEdit';
 
+import Sign_in from './components/usuario/Sign_in';
+import Sign_up from './components/usuario/Sign_up';
+
 const AppRouter = () => {
   return (
     <Routes>
@@ -28,6 +31,9 @@ const AppRouter = () => {
       <Route path="/entries" element={<EntryList />} />
       <Route path="/entries/create" element={<EntryForm />} />
       <Route path="/entries/edit/:id" element={<EntryEdit />} />
+
+      <Route path="/users/sign_up" element={<Sign_up />} />
+      <Route path="/users/sign_in" element={<Sign_in />} />
     </Routes>
   );
 };
