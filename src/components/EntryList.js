@@ -10,8 +10,8 @@ const EntryList = () => {
   const [accountDescriptions, setAccountDescriptions] = useState({});
   const [descriptionFilter, setDescriptionFilter] = useState('');
   const [valueFilter, setValueFilter] = useState('');
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(new Date().toISOString().split('T')[0]);
+  const [endDate, setEndDate] = useState(new Date().toISOString().split('T')[0]);
   const [billedFilter, setBilledFilter] = useState('all');
   const [entryTypeFilter, setEntryTypeFilter] = useState('all');
   const [categoryFilter, setCategoryFilter] = useState('all');
@@ -166,8 +166,10 @@ const EntryList = () => {
   const handleClearFilters = () => {
     setDescriptionFilter('');
     setValueFilter('');
-    setStartDate('');
-    setEndDate('');
+    const currentDate = new Date();
+    const currentDateISO = currentDate.toISOString().split('T')[0];
+    setStartDate(currentDateISO);
+    setEndDate(currentDateISO);
     setBilledFilter('');
     setEntryTypeFilter('');
     setCategoryFilter('');
