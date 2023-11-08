@@ -14,12 +14,14 @@ const DashboardOverview = () => {
   const [accountBalance] = useState();
   const [accountBalanceExpected] = useState();
 
+  const [economyPercentage] = useState();
+
   const fetchDashboardData = async () => {
     try {
       const response = await fetch(`http://localhost:3001/v1/dashboard/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
-        setDashboardData(data, topEntries, accountBalance, accountBalanceExpected);
+        setDashboardData(data, topEntries, accountBalance, accountBalanceExpected, economyPercentage);
       } else {
         console.error('Erro ao buscar dados da visão geral');
       }
@@ -173,6 +175,38 @@ const DashboardOverview = () => {
       </Grid.Row>
 
       <Grid.Row>
+        <Grid.Col sm={12} md={12} lg={12}>
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Economia Mensal</Card.Title>
+            </Card.Header>
+            <Card.Body>
+            <div>
+              {dashboardData && dashboardData.economyPercentage !== undefined && (
+                <div className="col-6 justify-content-center">
+                  <div className='col-12 d-flex justify-content-center'>
+                    <div className="economy-circle">
+                        {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
+                    </div>
+                  </div>
+                  <div>
+                    <div className="col-12 economy-value pt-3">
+                      R$ {dashboardData.balanceTotal.toFixed(2)}
+                    </div>
+                    <span>valor Economizado</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div>
+
+            </div>
+            </Card.Body>
+          </Card>
+        </Grid.Col>
+      </Grid.Row>
+
+      <Grid.Row>
         <Grid.Col sm={12} md={12} lg={6}>
           <Card className='mt-5'>
             <Card.Header>
@@ -181,21 +215,21 @@ const DashboardOverview = () => {
             <Card.Body>
               {dashboardData && dashboardData.topEntriesRevenues && (
                 <div className="row g-3">
-                {dashboardData.topEntriesRevenues.map((entry, index) => (
-                  <div className="col-6" key={index}>
-                    <div className="row g-3 align-items-center">
-                      <div className="col text-truncate">
-                        <a className="text-reset d-block text-truncate text-capitalize">
-                          {entry.description}
-                        </a>
-                        <div className="text-secondary text-truncate mt-n1">
-                          R$ {entry.value.toFixed(2)}
+                  {dashboardData.topEntriesRevenues.map((entry, index) => (
+                    <div className="col-6" key={index}>
+                      <div className="row g-3 align-items-center">
+                        <div className="col text-truncate">
+                          <a className="text-reset d-block text-truncate text-capitalize">
+                            {entry.description}
+                          </a>
+                          <div className="text-secondary text-truncate mt-n1">
+                            R$ {entry.value.toFixed(2)}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
               )}
             </Card.Body>
           </Card>
