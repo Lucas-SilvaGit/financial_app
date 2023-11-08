@@ -38,3 +38,46 @@
   text-align: center;
   line-height: 44px; /* Ajuste o line-height para centralizar verticalmente o símbolo */
 }
+
+/* Circulos porcentagem economizada */
+.economy-circle {
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+  border: 6px solid #37da37;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.economy-value {
+  color: #37da37;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.economy-value .p {
+  font-size: 10!important;
+}
+
+@media (max-width: 767px) {
+  .economy-circle {
+    width: 90px;
+    height: 90px;
+    font-size: 20px;
+  }
+
+  .economy-value {
+    color: #37da37;
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+
+/* Fim Circulos porcentagem economizada */
+
