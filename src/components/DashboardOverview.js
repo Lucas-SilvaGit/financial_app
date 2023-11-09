@@ -181,26 +181,37 @@ const DashboardOverview = () => {
               <Card.Title>Economia Mensal</Card.Title>
             </Card.Header>
             <Card.Body>
-            <div>
-              {dashboardData && dashboardData.economyPercentage !== undefined && (
-                <div className="col-6 justify-content-center">
-                  <div className='col-12 d-flex justify-content-center'>
-                    <div className="economy-circle">
-                        {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
+              <div className='d-flex justify-content-between'>
+                {dashboardData && dashboardData.economyPercentage !== undefined && (
+                  <div className="col-6 justify-content-center">
+                    <div className='col-12 d-flex justify-content-center'>
+                      <div className="economy-circle">
+                          {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
+                      </div>
+                    </div>
+                    <div>
+                      <div className="col-12 economy-value pt-3">
+                        R$ {dashboardData.balanceTotal.toFixed(2)}
+                      </div>
+                      <span>valor Economizado</span>
                     </div>
                   </div>
-                  <div>
-                    <div className="col-12 economy-value pt-3">
-                      R$ {dashboardData.balanceTotal.toFixed(2)}
-                    </div>
-                    <span>valor Economizado</span>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div>
+                )}
 
-            </div>
+                {dashboardData && (
+                  <div className="col-6 justify-content-end">
+                    <div>
+                      <h6 className='mb-0'>Receitas Consideradas</h6>
+                      <span className='revenue-considered-value'>R$ {dashboardData.totalRevenues.toFixed(2)}</span>
+                    </div>
+
+                    <div className='mt-6'>
+                      <h6 className='mb-0'>Despesas Consideradas</h6>
+                      <span className='expense-considered-value'>R$ {dashboardData.totalExpenses.toFixed(2)}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
             </Card.Body>
           </Card>
         </Grid.Col>
