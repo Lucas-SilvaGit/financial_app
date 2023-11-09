@@ -39,12 +39,12 @@
   line-height: 44px; /* Ajuste o line-height para centralizar verticalmente o símbolo */
 }
 
-/* Circulos porcentagem economizada */
+/* Economia Mensal */
 .economy-circle {
   width: 150px;
   height: 150px;
   background-color: transparent;
-  border: 6px solid #37da37;
+  border: 6px solid #4B9419;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -55,7 +55,7 @@
 }
 
 .economy-value {
-  color: #37da37;
+  color: #4B9419;
   font-size: 22px;
   font-weight: bold;
 }
@@ -72,12 +72,20 @@
   }
 
   .economy-value {
-    color: #37da37;
     font-size: 18px;
     font-weight: bold;
   }
 }
 
+.revenue-considered-value {
+  color:#AC1C1A;
+  font-weight: bold;
+}
 
-/* Fim Circulos porcentagem economizada */
+.expense-considered-value {
+  color: #4B9419;
+  font-weight: bold;
+}
+
+/* Fim Economia Mensal */
 
