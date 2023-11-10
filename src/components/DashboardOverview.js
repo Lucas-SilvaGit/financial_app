@@ -30,9 +30,50 @@ const DashboardOverview = () => {
     }
   };
 
+  const getEconomyMessage = (percentage) => {
+    const roundedPercentage = Math.round(percentage);
+  
+    if (roundedPercentage >= 80) {
+      return "Você sabe economizar mesmo!";
+    } else if (roundedPercentage >= 50) {
+      return "Você está no caminho certo, continue batalhando!";
+    } else if (roundedPercentage >= 20) {
+      return "Você está aprendendo, continue firme!";
+    } else if (roundedPercentage > 0) {
+      return "Você deve rever seus gastos e se planejar melhor, não desista!";
+    } else {
+      return "Você ainda não economizou esse mês!";
+    }
+  };
+
+  const getStylesBasedOnPercentage = (percentage) => {
+    const roundedPercentage = Math.round(percentage);
+  
+    let circleStyle = {};
+    let valueStyle = {};
+  
+    if (roundedPercentage >= 80) {
+      circleStyle = { borderColor: '#4B9419' };
+      valueStyle = { color: '#4B9419' };
+    } else if (roundedPercentage >= 50) {
+      circleStyle = { borderColor: '#f1c40f' };
+      valueStyle = { color: '#f1c40f' };
+    } else if (roundedPercentage >= 20) {
+      circleStyle = { borderColor: '#e67e22' };
+      valueStyle = { color: '#e67e22' };
+    } else {
+      circleStyle = { borderColor: '#AC1C1A' };
+      valueStyle = { color: '#AC1C1A' };
+    }
+  
+    return { circleStyle, valueStyle };
+  };
+
   useEffect(() => {
     fetchDashboardData();
   }, [year, month]);
+
+  const { circleStyle, valueStyle } = getStylesBasedOnPercentage(dashboardData?.economyPercentage || 0);
 
   return (
     <Container>
@@ -185,12 +226,12 @@ const DashboardOverview = () => {
                 {dashboardData && dashboardData.economyPercentage !== undefined && (
                   <div className="col-lg-6 col-12 mb-6 mb-lg-0">
                     <div className='col-12 d-flex justify-content-center'>
-                      <div className="economy-circle">
+                      <div className="economy-circle" style={circleStyle}>
                         {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
                       </div>
                     </div>
                     <div>
-                      <div className="col-12 economy-value pt-3">
+                      <div className="col-12 economy-value pt-3" style={valueStyle}>
                         R$ {dashboardData.balanceTotal.toFixed(2)}
                       </div>
                       <span>valor Economizado</span>
@@ -199,7 +240,7 @@ const DashboardOverview = () => {
                 )}
 
                 {dashboardData && (
-                  <div className="col-lg-6 col-12 justify-content-center">
+                  <div className="col-lg-6 col-12">
                     <div>
                       <h6 className='mb-0'>Receitas Consideradas</h6>
                       <span className='revenue-considered-value'>
@@ -212,6 +253,14 @@ const DashboardOverview = () => {
                       <span className='expense-considered-value'>
                         R$ {dashboardData.totalExpenses.toFixed(2)}
                       </span>
+                    </div>
+
+                    <div className='card-star mx-auto mt-5'>
+                      {dashboardData && dashboardData.economyPercentage !== undefined && (
+                        <div className="text-center">
+                          {getEconomyMessage(dashboardData.economyPercentage)}
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
