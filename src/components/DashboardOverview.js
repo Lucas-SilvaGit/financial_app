@@ -181,12 +181,12 @@ const DashboardOverview = () => {
               <Card.Title>Economia Mensal</Card.Title>
             </Card.Header>
             <Card.Body>
-              <div className='d-flex justify-content-between'>
+              <div className='d-flex flex-column flex-lg-row justify-content-between'>
                 {dashboardData && dashboardData.economyPercentage !== undefined && (
-                  <div className="col-6 justify-content-center">
+                  <div className="col-lg-6 col-12 mb-6 mb-lg-0">
                     <div className='col-12 d-flex justify-content-center'>
                       <div className="economy-circle">
-                          {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
+                        {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
                       </div>
                     </div>
                     <div>
@@ -199,15 +199,19 @@ const DashboardOverview = () => {
                 )}
 
                 {dashboardData && (
-                  <div className="col-6 justify-content-end">
+                  <div className="col-lg-6 col-12 justify-content-center">
                     <div>
                       <h6 className='mb-0'>Receitas Consideradas</h6>
-                      <span className='revenue-considered-value'>R$ {dashboardData.totalRevenues.toFixed(2)}</span>
+                      <span className='revenue-considered-value'>
+                        R$ {dashboardData.totalRevenues.toFixed(2)}
+                      </span>
                     </div>
 
-                    <div className='mt-6'>
+                    <div className='mt-2 mt-lg-6'>
                       <h6 className='mb-0'>Despesas Consideradas</h6>
-                      <span className='expense-considered-value'>R$ {dashboardData.totalExpenses.toFixed(2)}</span>
+                      <span className='expense-considered-value'>
+                        R$ {dashboardData.totalExpenses.toFixed(2)}
+                      </span>
                     </div>
                   </div>
                 )}
