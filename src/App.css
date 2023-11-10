@@ -87,5 +87,11 @@
   font-weight: bold;
 }
 
+.card-star{
+  background-color: rgb(219, 219, 219);
+  width: 250px;
+  height: 50px;
+  border-radius: 2%;
+  padding: 3px 3px 3px 3px;
+}
 /* Fim Economia Mensal */
-
