@@ -14,12 +14,14 @@ const DashboardOverview = () => {
   const [accountBalance] = useState();
   const [accountBalanceExpected] = useState();
 
+  const [economyPercentage] = useState();
+
   const fetchDashboardData = async () => {
     try {
       const response = await fetch(`http://localhost:3001/v1/dashboard/${year}/${month}`);
       if (response.ok) {
         const data = await response.json();
-        setDashboardData(data, topEntries, accountBalance, accountBalanceExpected);
+        setDashboardData(data, topEntries, accountBalance, accountBalanceExpected, economyPercentage);
       } else {
         console.error('Erro ao buscar dados da visão geral');
       }
@@ -28,9 +30,50 @@ const DashboardOverview = () => {
     }
   };
 
+  const getEconomyMessage = (percentage) => {
+    const roundedPercentage = Math.round(percentage);
+  
+    if (roundedPercentage >= 80) {
+      return "Você sabe economizar mesmo!";
+    } else if (roundedPercentage >= 50) {
+      return "Você está no caminho certo, continue batalhando!";
+    } else if (roundedPercentage >= 20) {
+      return "Você está aprendendo, continue firme!";
+    } else if (roundedPercentage > 0) {
+      return "Você deve rever seus gastos e se planejar melhor, não desista!";
+    } else {
+      return "Você ainda não economizou esse mês!";
+    }
+  };
+
+  const getStylesBasedOnPercentage = (percentage) => {
+    const roundedPercentage = Math.round(percentage);
+  
+    let circleStyle = {};
+    let valueStyle = {};
+  
+    if (roundedPercentage >= 80) {
+      circleStyle = { borderColor: '#4B9419' };
+      valueStyle = { color: '#4B9419' };
+    } else if (roundedPercentage >= 50) {
+      circleStyle = { borderColor: '#f1c40f' };
+      valueStyle = { color: '#f1c40f' };
+    } else if (roundedPercentage >= 20) {
+      circleStyle = { borderColor: '#e67e22' };
+      valueStyle = { color: '#e67e22' };
+    } else {
+      circleStyle = { borderColor: '#AC1C1A' };
+      valueStyle = { color: '#AC1C1A' };
+    }
+  
+    return { circleStyle, valueStyle };
+  };
+
   useEffect(() => {
     fetchDashboardData();
   }, [year, month]);
+
+  const { circleStyle, valueStyle } = getStylesBasedOnPercentage(dashboardData?.economyPercentage || 0);
 
   return (
     <Container>
@@ -173,6 +216,61 @@ const DashboardOverview = () => {
       </Grid.Row>
 
       <Grid.Row>
+        <Grid.Col sm={12} md={12} lg={12}>
+          <Card className='mt-5'>
+            <Card.Header>
+              <Card.Title>Economia Mensal</Card.Title>
+            </Card.Header>
+            <Card.Body>
+              <div className='d-flex flex-column flex-lg-row justify-content-between'>
+                {dashboardData && dashboardData.economyPercentage !== undefined && (
+                  <div className="col-lg-6 col-12 mb-6 mb-lg-0">
+                    <div className='col-12 d-flex justify-content-center'>
+                      <div className="economy-circle" style={circleStyle}>
+                        {parseFloat(dashboardData.economyPercentage).toFixed(2)}%
+                      </div>
+                    </div>
+                    <div>
+                      <div className="col-12 economy-value pt-3" style={valueStyle}>
+                        R$ {dashboardData.balanceTotal.toFixed(2)}
+                      </div>
+                      <span>valor Economizado</span>
+                    </div>
+                  </div>
+                )}
+
+                {dashboardData && (
+                  <div className="col-lg-6 col-12">
+                    <div>
+                      <h6 className='mb-0'>Receitas Consideradas</h6>
+                      <span className='revenue-considered-value'>
+                        R$ {dashboardData.totalRevenues.toFixed(2)}
+                      </span>
+                    </div>
+
+                    <div className='mt-2 mt-lg-6'>
+                      <h6 className='mb-0'>Despesas Consideradas</h6>
+                      <span className='expense-considered-value'>
+                        R$ {dashboardData.totalExpenses.toFixed(2)}
+                      </span>
+                    </div>
+
+                    <div className='card-star mx-auto mt-5'>
+                      {dashboardData && dashboardData.economyPercentage !== undefined && (
+                        <div className="text-center">
+                          {getEconomyMessage(dashboardData.economyPercentage)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </Card.Body>
+          </Card>
+        </Grid.Col>
+      </Grid.Row>
+
+      <Grid.Row>
         <Grid.Col sm={12} md={12} lg={6}>
           <Card className='mt-5'>
             <Card.Header>
@@ -181,21 +279,21 @@ const DashboardOverview = () => {
             <Card.Body>
               {dashboardData && dashboardData.topEntriesRevenues && (
                 <div className="row g-3">
-                {dashboardData.topEntriesRevenues.map((entry, index) => (
-                  <div className="col-6" key={index}>
-                    <div className="row g-3 align-items-center">
-                      <div className="col text-truncate">
-                        <a className="text-reset d-block text-truncate text-capitalize">
-                          {entry.description}
-                        </a>
-                        <div className="text-secondary text-truncate mt-n1">
-                          R$ {entry.value.toFixed(2)}
+                  {dashboardData.topEntriesRevenues.map((entry, index) => (
+                    <div className="col-6" key={index}>
+                      <div className="row g-3 align-items-center">
+                        <div className="col text-truncate">
+                          <a className="text-reset d-block text-truncate text-capitalize">
+                            {entry.description}
+                          </a>
+                          <div className="text-secondary text-truncate mt-n1">
+                            R$ {entry.value.toFixed(2)}
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
               )}
             </Card.Body>
           </Card>

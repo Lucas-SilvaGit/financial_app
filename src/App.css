@@ -38,3 +38,60 @@
   text-align: center;
   line-height: 44px; /* Ajuste o line-height para centralizar verticalmente o símbolo */
 }
+
+/* Economia Mensal */
+.economy-circle {
+  width: 150px;
+  height: 150px;
+  background-color: transparent;
+  border: 6px solid #4B9419;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.economy-value {
+  color: #4B9419;
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.economy-value .p {
+  font-size: 10!important;
+}
+
+@media (max-width: 767px) {
+  .economy-circle {
+    width: 90px;
+    height: 90px;
+    font-size: 20px;
+  }
+
+  .economy-value {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.revenue-considered-value {
+  color:#AC1C1A;
+  font-weight: bold;
+}
+
+.expense-considered-value {
+  color: #4B9419;
+  font-weight: bold;
+}
+
+.card-star{
+  background-color: rgb(219, 219, 219);
+  width: 250px;
+  height: 50px;
+  border-radius: 2%;
+  padding: 3px 3px 3px 3px;
+}
+/* Fim Economia Mensal */
