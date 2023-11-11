@@ -270,8 +270,8 @@ const DashboardOverview = () => {
         </Grid.Col>
       </Grid.Row>
 
-      <Grid.Row>
-        <Grid.Col sm={12} md={12} lg={6}>
+      <Grid.Row className='d-flex flex-column flex-lg-row justify-content-between'>
+        <Grid.Col className='col-lg-6 col-12 mb-3 mb-lg-0'>
           <Card className='mt-5'>
             <Card.Header>
               <Card.Title>Top 5 Receitas</Card.Title>
@@ -299,8 +299,8 @@ const DashboardOverview = () => {
           </Card>
         </Grid.Col>
 
-        <Grid.Col sm={12} md={12} lg={6}>
-          <Card className='mt-5'>
+        <Grid.Col className='col-lg-6 col-12'>
+          <Card className='mt-0 mt-lg-5'>
             <Card.Header>
               <Card.Title>Top 5 Despesas</Card.Title>
             </Card.Header>
